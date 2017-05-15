@@ -1,0 +1,27 @@
+<div class="section-box">
+
+    <div class="section-header">
+        <h2 class="section-title">
+            <span class="name">Recently Added Documentaries</span>
+        </h2>
+        <a class="more-link"
+           href="{{ url('documentary_wire_browse') }}"
+                title="Watch New Documentaries">
+            <span>More <i class="mini-arrow-right"></i></span></a>
+    </div>
+
+    <div class="section-content grid-large">
+        <div class="nag cf">
+
+            {% for documentaryKey in documentaries %}
+                {% set slug = documentaryKey.slug %}
+                {% set documentary = fetchDocumentary(slug) %}
+                {{ include('DocumentaryWIREBundle:Documentary:post.html.twig') }}
+            {% endfor %}
+
+        </div>
+
+    </div><!-- end .section-content -->
+
+</div><!-- end .section-box -->
+

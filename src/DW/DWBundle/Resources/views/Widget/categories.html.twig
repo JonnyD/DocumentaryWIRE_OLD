@@ -1,0 +1,14 @@
+<div id="categories-2" class="widget widget_categories">
+    <div class="widget-header">
+        <h2 class="widget-title">Documentary Categories</h2>
+    </div>
+    <ul>
+        {% for category in listCategories() %}
+            <li class="cat-item cat-item-1">
+                <a href="{{ url('documentary_wire_show_category', {'slug': category.slug }) }}"
+                        title="Watch {{ category.name }} Documentaries">
+                    {{ category.name }}</a> ({{ category.count }})
+            </li>
+        {% endfor %}
+    </ul>
+</div>

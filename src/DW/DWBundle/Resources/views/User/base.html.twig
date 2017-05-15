@@ -1,0 +1,79 @@
+{% extends 'DocumentaryWIREBundle::base2.html.twig' %}
+
+{% block content %}
+    {% set username = user.username %}
+    {% set displayName = user.displayName %}
+    {% set avatar = getAvatar(user, 'avatar200') %}
+    {% set userId = user.id %}
+
+    <div class="padder">
+    <div id="item-header" role="complementary">
+        <div id="item-header-avatar">
+            <a href="{{ path('documentary_wire_show_user', {'username': username }) }}">
+                <img alt="Profile picture of {{ username }}" src="{{ asset(avatar) }}" class="avatar" />
+            </a>
+        </div><!-- #item-header-avatar -->
+
+        <div id="item-header-content">
+
+            <h2>
+                <a href="{{ path('documentary_wire_show_user', {'username': username }) }}">
+                    {{ displayName }}
+                </a>
+            </h2>
+
+            <span class="user-nicename">@{{ username }}</span>
+            <!--<span class="activity"></span>-->
+
+            <div id="item-meta">
+                <div id="latest-update">
+                </div>
+
+                <div id="item-buttons">
+                </div><!-- #item-buttons -->
+            </div><!-- #item-meta -->
+        </div><!-- #item-header-content -->
+    </div><!-- #item-header -->
+
+    <div id="item-nav">
+        <div class="item-list-tabs no-ajax" id="object-nav" role="navigation">
+            <ul>
+                <li id="activity-personal-li"
+                    {% if app.request.get('_route') == 'documentary_wire_show_user' %}
+                        class="current selected"
+                    {% endif %}>
+                    <a id="user-activity" href="{{ path('documentary_wire_show_user',
+                    {'username': username }) }}">Activity</a>
+                </li>
+                <li {% if app.request.get('_route') == 'documentary_wire_show_user_favourites' %}
+                        class="current selected"
+                    {% endif %}>
+                    <a href="{{ path('documentary_wire_show_user_favourites',
+                    {'username': username }) }}">Favorites</a>
+                </li>
+                <!--<li {% if app.request.get('_route') == 'documentary_wire_show_user_followers' %}
+                        class="current selected"
+                    {% endif %}>
+                    <a href="{{ path('documentary_wire_show_user_followers',
+                    {'username': username }) }}">Followers</a>
+                </li>
+                <li {% if app.request.get('_route') == 'documentary_wire_show_user_following' %}
+                        class="current selected"
+                    {% endif %}>
+                    <a href="{{ path('documentary_wire_show_user_following',
+                    {'username': username }) }}">Following</a>-->
+                </li>
+            </ul>
+        </div>
+    </div><!-- #item-nav -->
+
+    {% block userBody %}
+    {% endblock %}
+
+    </div><!-- .padder -->
+{% endblock %}
+
+{% block sidebar %}
+    {{ include('DocumentaryWIREBundle:User:listMembersWidget.html.twig') }}
+    {{ include('DocumentaryWIREBundle:Community:recentActivityWidget.html.twig') }}
+{% endblock %}

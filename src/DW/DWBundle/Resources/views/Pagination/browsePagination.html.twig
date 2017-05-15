@@ -1,0 +1,31 @@
+{# default Sliding pagination control implementation #}
+
+{% if pageCount > 1 %}
+    <div class="comment-nav pag-nav">
+        {% if previous is defined %}
+            {% if previous == 1 %}
+                <a class="prev page-numbers" href="{{ url('documentary_wire_browse') }}">&laquo; Previous</a>
+            {% else %}
+                <a class="prev page-numbers" href="{{ url(route, query|merge({(pageParameterName): previous})) }}">&laquo; Previous</a>
+            {% endif %}
+        {% endif %}
+
+        {% for page in pagesInRange %}
+            {% if page != current %}
+                {% if page == 1 %}
+                    {% set path = url('documentary_wire_browse') %}
+                {% else %}
+                    {% set path = url(route, query|merge({(pageParameterName): page})) %}
+                {% endif %}
+                <a class="page-numbers" href="{{ path }}">{{ page }}</a>
+            {% else %}
+                <span class="page-numbers current">{{ page }}</span>
+            {% endif %}
+
+        {% endfor %}
+
+        {% if next is defined %}
+            <a class="next page-numbers" href="{{ url(route, query|merge({(pageParameterName): next})) }}">Next &raquo;</a>
+        {% endif %}
+    </div>
+{% endif %}

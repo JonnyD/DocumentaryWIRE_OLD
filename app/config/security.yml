@@ -1,0 +1,59 @@
+security:
+    encoders:
+        DW\DWBundle\Entity\User:
+            algorithm: bcrypt
+            cost: 12
+
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    providers:
+        main:
+            entity:
+                class: DW\DWBundle\Entity\User
+                property: username
+        oauth_provider:
+            id: documentary_wire.oauth_user_provider
+
+    firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        login:
+            pattern:  ^/login$
+            security: false
+
+        secured_area:
+            pattern:    ^/
+            anonymous: ~
+            oauth:
+                resource_owners:
+                    facebook:           "/oauth-login/check-facebook"
+                login_path:        /login
+                use_forward:       false
+                failure_path:      /login
+                use_referer: true
+                oauth_user_provider:
+                    service: documentary_wire.oauth_user_provider
+            form_login:
+                login_path:  login
+                check_path:  login_check
+                success_handler: login_handler
+                default_target_path: /
+                always_use_default_target_path: true
+            logout:
+                path:   logout
+                target: /
+
+    access_control:
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/connect/facebook, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/documentary/add, roles: ROLE_USER }
+        - { path: ^/user, roles: ROLE_USER }
+        - { path: ^/users, roles: ROLE_USER }
+        - { path: ^/community, roles: ROLE_USER }
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }

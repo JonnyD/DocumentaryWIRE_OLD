@@ -1,0 +1,21 @@
+<div id="dp-comments-2" class="widget widget-comments">
+    <div class="widget-header">
+        <h3 class="widget-title">Recent Comments</h3>
+    </div>
+    <ul class="has-avatar">
+        {% for comment in comments %}
+            <li>
+                <img alt='' src='http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=48' class='avatar avatar-48 photo avatar-default' height='48' width='48' />
+                <div class="data">
+				<span class="author">
+					<a href="http://localhost/wordpress/?p=1#comment-1"></a>
+				</span>
+                    <span class="date">{{ comment.created|date('Y-m-d') }}</span>
+                    <p class="excerpt">
+                        {{ comment.comment[:50] ~ '...' }}
+                    </p>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+</div>

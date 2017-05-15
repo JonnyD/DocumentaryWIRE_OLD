@@ -1,0 +1,91 @@
+{% extends 'DocumentaryWIREBundle:Documentary:base.html.twig' %}
+
+{% set page = app.request.attributes.get('_route_params')['page'] %}
+
+{% block title %}Browse Documentaries | {% if page > 1 %}Page {{ page }} | {% endif %}DocumentaryWIRE{% endblock %}
+{% block description %}{% if page > 1 %}Page {{ page }} | {% endif %}Browse all documentaries by date, category, year, and length.{% endblock %}
+
+{% block head %}
+
+    {% if page > 1 %}
+        {% set url = url('documentary_wire_browse_page', app.request.attributes.get('_route_params')) %}
+    {% else %}
+        {% set url = url('documentary_wire_browse', app.request.attributes.get('_route_params')) %}
+    {% endif %}
+<link rel="canonical" href="{{ url }}" />
+
+    {% if previousPage is defined and previousPage is not null %}
+        {% if previousPage == 1 %}
+            {% set prev = url('documentary_wire_browse') %}
+        {% else %}
+            {% set prev = url('documentary_wire_browse_page', {'page': previousPage}) %}
+        {% endif %}
+        <link rel="prev" href="{{ prev }}" />
+    {% endif %}
+    {% if nextPage is defined and nextPage is not null %}
+        {% set next = url('documentary_wire_browse_page', {'page': nextPage}) %}
+        <link rel="next" href="{{ next }}" />
+    {% endif %}
+{% endblock %}
+
+{% block categoryCarousel %}
+    <div class="cat-featured wall">
+        <div class="carousel fcarousel fcarousel-5 wrap cf">
+            <div class="carousel-container">
+                <div class="carousel-clip">
+                    <ul class="carousel-list">
+                        {% for documentaryKey in documentaries %}
+                            {% set slug = documentaryKey.slug %}
+                            {% set documentary = fetchDocumentary(slug) %}
+                            <li class="item-video">
+                                <div class="thumb">
+                                    <a class="clip-link"
+                                       data-id="{{ documentary.id }}"
+                                       title="{{ documentary.title }}"
+                                       href="{{ url('documentary_wire_show_documentary', {'slug': documentary.slug }) }}">
+
+                                        <span class="clip">
+                                            <img src="{{ asset(documentary.thumbnail | imagine_filter('cover160x200')) }}" alt="{{ documentary.title }}" />
+                                            <span class="vertical-align"></span>
+                                        </span>
+
+                                        <span class="overlay"></span>
+                                    </a>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div><!-- end .carousel-clip -->
+
+                <div class="carousel-prev"></div>
+                <div class="carousel-next"></div>
+            </div><!-- end .carousel-container -->
+        </div><!-- end .carousel -->
+    </div><!-- end .cat-featured -->
+{% endblock %}
+
+{% block content %}
+    <div class="loop-header">
+        <h1 class="loop-title">
+            <span class="prefix">Browse:</span>
+            <em>All Documentaries {% if page > 1 %}- Page {{ page }}{% endif %}</em>
+        </h1>
+        <div class="loop-desc"></div>
+    </div><!-- end .loop-header -->
+
+    {{ include('DocumentaryWIREBundle:Documentary:loop-actions.html.twig') }}
+
+    <div class="loop-content switchable-view grid-large" data-view="grid-large" data-ajaxload=1>
+
+        <div class="nag cf">
+            {% for documentaryKey in documentaries %}
+                {% set slug = documentaryKey.slug %}
+                {% set documentary = fetchDocumentary(slug) %}
+                {{ include('DocumentaryWIREBundle:Documentary:post.html.twig') }}
+            {% endfor %}
+        </div><!-- end .nag cf -->
+
+        {{ knp_pagination_render(documentaries, 'DocumentaryWIREBundle:Pagination:browsePagination.html.twig') }}
+
+    </div><!-- end .loop-content -->
+{% endblock %}

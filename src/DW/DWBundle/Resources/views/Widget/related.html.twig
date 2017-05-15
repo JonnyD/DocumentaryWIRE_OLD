@@ -1,0 +1,56 @@
+<div id="dp-widget-posts-2" class="widget widget-posts">
+
+    <div class="widget-header">
+        <h3 class="widget-title">Related</h3>
+    </div>
+
+    <ul class="post-list">
+        {% for documentary in related %}
+        <li class="item cf item-post">
+
+            <div class="thumb">
+                <a class="clip-link" data-id="5125"
+                   title="{{ documentary.title }}"
+                   href="{{ url('documentary_wire_show_documentary', {'slug': documentary.slug }) }}">
+                    <span class="clip">
+                        <img src="{{ asset(documentary.thumbnail) }}"
+                             alt="{{ documentary.title }}" />
+                        <span class="vertical-align"></span>
+                    </span>
+
+                    <span class="overlay"></span>
+                </a>
+            </div>
+            <div class="data">
+                <h4 class="entry-title">
+                    <a href="{{ url('documentary_wire_show_documentary', {'slug': documentary.slug }) }}"
+                       title="{{ documentary.title }}">
+                        {{ documentary.title }}
+                    </a>
+                </h4>
+
+                <p class="meta">
+                    <span class="author">Added by <a href="#" title="Posts by #" rel="author">#</a></span>
+                    <span class="time">#</span>
+                </p>
+
+                <p class="stats">
+                    <span class="views">
+                        <i class="count">{{ documentary.views }}</i>
+                        <span class="suffix">Views</span>
+                    </span>
+                    <span class="comments">
+                        <i class="count">#</i>
+                        <span class="suffix">Comments</span>
+                    </span>
+                    <span class="dp-post-likes likes">
+                        <i class="count" data-pid="5125">#</i>
+                        <span class="suffix">Likes</span>
+                    </span>
+                </p>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+
+</div>

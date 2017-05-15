@@ -1,0 +1,17 @@
+{% extends 'DocumentaryWIREBundle:User:base.html.twig' %}
+
+{% block userBody %}
+    <div id="item-body">
+        <div class="loop-content switchable-view grid-large" data-view="grid-large">
+            <div class="nag cf">
+                {% for like in likes %}
+                    {% set documentaryKey = like.documentary.slug %}
+                    {% set documentary = fetchDocumentary(documentaryKey) %}
+                    {{ include('DocumentaryWIREBundle:Documentary:post.html.twig') }}
+                {% endfor %}
+            </div>
+        </div><!-- end .loop-content -->
+
+        {{ knp_pagination_render(likes, 'DocumentaryWIREBundle:Pagination:sliding.html.twig') }}
+    </div><!-- #item-body -->
+{% endblock %}

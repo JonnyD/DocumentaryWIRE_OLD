@@ -1,0 +1,24 @@
+<div id="categories-2" class="widget widget_categories">
+    <div class="widget-header">
+        <h3 class="widget-title"><a href="#" data-tid="#tab-categories" class="selected">Categories</a>
+            / <a href="#" data-tid="#tab-tags">Tags</a></h3>
+    </div>
+    <div id="tab-categories" class="topics-content">
+        <ul>
+            {% for category in listCategories() %}
+                <li class="cat-item cat-item-1">
+                    <a href="{{ path('documentary_wire_show_category', {'slug': category.slug }) }}"
+                       title="Watch {{ category.name }} Documentaries">
+                        {{ category.name }}</a> ({{ category.count }})
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div id="tab-tags" class="tagcloud topics-content" >
+        {% for tag in listTags() %}
+            <a href='{{ path('documentary_wire.show_tag', {'slug': tag.slug }) }}'
+               class='tag-link-30' title='5 topics'>{{ tag.name }}</a>
+        {% endfor %}
+    </div>
+</div>

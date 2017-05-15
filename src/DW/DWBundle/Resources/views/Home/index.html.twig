@@ -1,0 +1,130 @@
+{% extends 'DocumentaryWIREBundle::base2.html.twig' %}
+
+{% block title %}DocumentaryWIRE | Watch Free Documentaries Online{% endblock %}
+{% block description %}Watch the best free documentary films and movies online. Discover thousands of eye-opening, mind-blowing, and paradigm shifting full-length documentaries.{% endblock %}
+{% block keywords %}documentary, documentaries, watch, movies, films, free{% endblock %}
+{% block head %}
+    <link rel="canonical" href="{{ url("documentary_wire_homepage") }}" />
+
+    <meta property="og:title" content="DocumentaryWIRE | Watch Free Documentaries Online" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://www.documentarywire.com/" />
+    <meta property="og:image" content="http://www.documentarywire.com/images/tvs-fb.jpg" />
+    <meta property="og:site_name" content="DocumentaryWIRE" />
+    <meta property="fb:app_id" content="516432235033685" />
+    <meta property="og:description" content="Watch the best free documentary films and movies online. Discover thousands of
+    eye-opening, and paradigm shifting full-length documentaries." />
+{% endblock %}
+
+{% block featured %}
+    {{ include('DocumentaryWIREBundle::featured.html.twig') }}
+{% endblock %}
+
+{% block content %}
+    <div class="section-box">
+
+        <div class="section-header">
+            <h2 class="section-title">
+                <span class="name">Recently Added Documentaries</span>
+            </h2>
+            <a class="more-link"
+               href="{{ url('documentary_wire_browse') }}"
+               title="Watch New Documentaries">
+                <span>More <i class="mini-arrow-right"></i></span></a>
+        </div>
+
+        <div class="section-content grid-large">
+            <div class="nag cf">
+
+                {% for documentaryKey in getDocumentariesBySection('recent')|slice(0,12) %}
+                    {% set slug = documentaryKey.slug %}
+                    {% if slug is defined %}
+                    {% set documentary = fetchDocumentary(slug) %}
+                    {{ include('DocumentaryWIREBundle:Documentary:post.html.twig') }}
+                    {% endif %}
+                {% endfor %}
+
+            </div>
+
+        </div><!-- end .section-content -->
+
+    </div><!-- end .section-box -->
+
+    <div class="section-box">
+
+        <div class="section-header">
+            <h2 class="section-title">
+                <span class="name">Popular Documentaries</span>
+            </h2>
+
+            <a class="more-link"
+               href="{{ url('documentary_wire_browse', {'orderBy': 'views'}) }}"
+               title="Watch Popular Documentaries">
+            <span>
+                More <i class="mini-arrow-right"></i>
+            </span>
+            </a>
+        </div>
+
+        <div class="section-content grid-mini">
+            <div class="nag cf">
+                {% for documentaryKey in getDocumentariesBySection('popular')|slice(0,8) %}
+                    {% set slug = documentaryKey.slug %}
+                    {% set documentary = fetchDocumentary(slug) %}
+                    {{ include('DocumentaryWIREBundle:Documentary:post.html.twig') }}
+                {% endfor %}
+            </div>
+
+        </div><!-- end .section-content -->
+
+    </div><!-- end .section-box -->
+
+    <div class="section-box">
+
+        <div class="section-header">
+            <h2 class="section-title">
+                <span class="name">Most Liked Documentaries</span>
+            </h2>
+            <a class="more-link"
+               href="{{ url('documentary_wire_browse', {'orderBy': 'likes'}) }}"
+               title="Watch Most Liked Documentaries">
+                <span>More <i class="mini-arrow-right"></i></span></a>
+        </div>
+
+        <div class="section-content grid-mini">
+            <div class="nag cf">
+                {% for documentaryKey in getDocumentariesBySection('liked')|slice(0,8) %}
+                    {% set slug = documentaryKey.slug %}
+                    {% set documentary = fetchDocumentary(slug) %}
+                    {{ include('DocumentaryWIREBundle:Documentary:post.html.twig') }}
+                {% endfor %}
+            </div>
+
+        </div><!-- end .section-content -->
+
+    </div><!-- end .section-box -->
+
+    <div class="section-box">
+
+        <div class="section-header">
+            <h2 class="section-title">
+                <span class="name">Most Discussed Documentaries</span>
+            </h2>
+            <a class="more-link" href="{{ url('documentary_wire_browse', {'orderBy': 'comments'}) }}"
+               title="Watch Most Discussed Documentaries">
+                <span>More <i class="mini-arrow-right"></i></span></a>
+        </div>
+
+        <div class="section-content grid-mini">
+            <div class="nag cf">
+                {% for documentaryKey in getDocumentariesBySection('discussed')|slice(0,8) %}
+                    {% set slug = documentaryKey.slug %}
+                    {% set documentary = fetchDocumentary(slug) %}
+                    {{ include('DocumentaryWIREBundle:Documentary:post.html.twig') }}
+                {% endfor %}
+            </div>
+
+        </div><!-- end .section-content -->
+
+    </div><!-- end .section-box -->
+{% endblock %}

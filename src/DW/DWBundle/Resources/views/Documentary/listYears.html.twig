@@ -1,0 +1,20 @@
+<div id="categories-2" class="widget widget_categories">
+    <div class="widget-header">
+        <h3 class="widget-title">Year</h3>
+    </div>
+    <ul>
+        {% for year in yearWidget() %}
+            <li class="cat-item cat-item-1">
+                <a href="{% if year.year is not null %}
+                    {{ url('documentary_wire.show_year', {'year': year.year }) }}
+                {% else %}
+                    {{ url('documentary_wire.show_year', {'year': "unknown" }) }}
+                {% endif %}">
+                    {% if year.year is null %}Unknown
+                    {% else %}{{ year.year }}{% endif %}
+                </a> ({{ year.amount }})
+
+            </li>
+        {% endfor %}
+    </ul>
+</div>

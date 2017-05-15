@@ -1,0 +1,11 @@
+<div id="tag_cloud-2" class="widget widget_tag_cloud">
+    <div class="widget-header">
+        <h3 class="widget-title">Tags</h3>
+    </div>
+    <div class="tagcloud">
+        {% for tag in listTags() %}
+            <a href='{{ path('documentary_wire.show_tag', {'slug': tag.slug }) }}'
+               class='tag-link-30' title='5 topics'>{{ tag.name }}</a>
+        {% endfor %}
+    </div>
+</div>

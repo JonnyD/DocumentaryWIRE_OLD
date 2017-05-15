@@ -1,0 +1,169 @@
+{% extends 'DocumentaryWIREBundle::base2.html.twig' %}
+
+{% block title %}{{ documentary.seoTitle }} | Watch Free Documentary Online{% endblock %}
+{% block description %}{{ documentary.seoDescription }}{% endblock %}
+
+{% block head %}
+        {% set pageUrl = url('documentary_wire_show_documentary', app.request.attributes.get('_route_params')) %}
+
+    <link rel="canonical" href="{{ pageUrl }}" />
+    <link rel="shortlink" href="{% if documentary.shortUrl is not null %}{{ documentary.shortUrl }}{% endif %}" />
+
+    {% set facebookThumbnail = documentary.thumbnail %}
+    {% if documentary.featuredImage is not null %}
+        {% set facebookThumbnail = documentary.featuredImage %}
+    {% endif %}
+    <meta property="fb:app_id" content="516432235033685" />
+    <meta property="og:type" content="video.movie" />
+    <meta property="og:title" content="{{ documentary.title }}" />
+    <meta property="og:url" content="{{ pageUrl }}" />
+    <meta property="og:image" content="{{ app.request.getSchemeAndHttpHost() ~ asset(facebookThumbnail) }}" />
+    <meta property="og:site_name" content="DocumentaryWIRE" />
+    <meta property="fb:admins" content="1341326380" />
+    <meta property="og:description" content="{{ documentary.excerpt }}"/>
+
+    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4dfc0b5e5fde2f26"></script>
+    <script type="text/javascript">
+        var addthis_share =
+        {
+            templates: {
+                twitter: 'Watch {{ documentary.title }} {% if documentary.shortUrl is not null %}{{ documentary.shortUrl }}{% else %}{{ pageUrl }}{% endif %} via @documentaries'
+            }
+        }
+    </script>
+{% endblock %}
+
+{% set loggedInUser = app.user %}
+{% set hasLiked = false %}
+{% if loggedInUser is defined and loggedInUser is not null %}
+    {% set hasLiked = hasLiked(loggedInUser, documentary.slug) %}
+{% endif %}
+{% block documentaryContent %}
+
+<div id="content">
+
+
+    <div class="post-1 post type-post status-publish format-video hentry category-uncategorized"
+         id="post-{{ documentary.id }}">
+
+        <div id="video">
+            <div class="screen fluid-width-video-wrapper">
+                {{ embedCode | raw }}
+            </div><!-- end .screen -->
+        </div><!-- end #video-->
+
+        <div style="clear:both"></div>
+
+        <div class="entry-header cf">
+            <div class="inner cf">
+                <h1 class="entry-title">{{ documentary.title }}</h1>
+
+                <div style="clear:both"></div>
+
+            <span class="item">
+            <span class="stats">
+                <span class="year">
+                {% if documentary.year is not null %}
+                    <a href="{{ url('documentary_wire.show_year', {'year': documentary.year }) }}">{{ documentary.year }}</a>
+                {% else %}
+                    <a href="{{ url('documentary_wire.show_year', {'year': "unknown" }) }}">Unknown year</a>
+                {% endif %}
+                </span>
+                <span class="category">
+                    <a href="{{ url('documentary_wire_show_category', {'slug': documentary.category.slug }) }}">{{ documentary.category.name }}</a>
+                </span>
+                <span class="views">
+                    <i class="count">{{ documentary.views|views }}</i>
+                    <span class="suffix">Views</span>
+                </span>
+                <span class="comments">
+                    <i class="count">{{ documentary.commentCount }}</i>
+                    <span class="suffix">Comments</span>
+                </span>
+                <span class="dp-post-likes likes {% if hasLiked %}liked{% endif %}" data-did="{{ documentary.id }}">
+                <i class="count" data-did="{{ documentary.id }}">{{ documentary.likeCount }}</i>
+                <span class="suffix">Likes</span>
+            </span>
+
+
+            </span>
+                </span>
+
+            </div><!-- end .entry-header>.inner -->
+
+        </div><!-- end .entry-header -->
+
+        <div class="entry-actions">
+            <div class="inner">
+                <span class="dp-like-post like-documentary">
+                {% if hasLiked %}
+                    <a class="liked" href="#" data-action="unlike" data-did="{{ documentary.id }}">
+                        Remove from Favourites
+                    </a>
+                {% else %}
+                    <a class="like" href="#" data-action="like" data-did="{{ documentary.id }}">
+                        Add to Favourites
+                    </a>
+                {% endif %}
+            </span>
+            <div class="dropdown dp-share">
+                <a class="dropdown-handle" href="#">Share</a>
+
+                <div class="dropdown-content">
+                    <div class="addthis_toolbox addthis_default_style" addthis:url='' addthis:title='{{ documentary.seoTitle }}'>
+                        <ul>
+                            <li><a class="addthis_button_facebook_like" fb:like:layout="button_count"></a></li>
+                            <li><a class="addthis_button_tweet"></a></li>
+                            <li><a class="addthis_button_google_plusone" g:plusone:size="medium"></a></li>
+                            <li><a class="addthis_button_pinterest_pinit"></a></li>
+                            <li><a class="addthis_counter addthis_pill_style"></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+                <span class="report-post" id="wprp_report_link_5592">
+	<a class="like" href="#">Report</a>
+	</span>
+											<span class="buy-dvd">
+					<a href="http://www.amazon.com/gp/search?ie=UTF8&tag=documwire-20&index=dvd&linkCode=ur2&camp=1789&creative=9325&keywords={{ documentary.title }}" target="_blank">Buy DVD</a>
+					</span>
+                </div>
+            <div style="clear:both"></div>
+        </div>
+
+        <div id="details" class="section-box">
+            <div class="section-content">
+                <div id="info" class="" data-less-height="120">
+
+                    <div class="entry-content rich-content">
+                        <img style="float:right; margin: 0 0 10px 10px" width="100" height="120" src="{{ asset(documentary.thumbnail) }}"
+                                width="100" height="120" />
+                        {{ documentary.description|nl2br }}
+                    </div><!-- end .entry-content -->
+
+
+                </div><!-- end #info -->
+            </div><!-- end .section-content -->
+
+            <div class="info-toggle">
+                <a href="#" class="info-toggle-button info-more-button">
+                    <span class="more-text">Show more</span>
+                    <span class="less-text">Show less</span>
+                </a>
+            </div>
+        </div><!--end #deatils-->
+
+
+    </div><!-- end #post-1 -->
+
+    {{ include('DocumentaryWIREBundle:Comment:list.html.twig', {'comments': comments, 'form': commentForm}) }}
+
+</div>
+
+
+{% endblock %}
+
+{% block sidebar %}
+    {{ include('DocumentaryWIREBundle:Documentary:related.html.twig') }}
+{% endblock %}

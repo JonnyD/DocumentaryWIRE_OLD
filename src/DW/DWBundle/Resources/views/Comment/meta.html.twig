@@ -1,0 +1,20 @@
+<div class="comment-meta">
+    <span class="comment-author">
+        <cite class="fn">
+            {% if user is defined and user is not null %}
+                <a href='{{ path('documentary_wire_show_user', {'username': user.username }) }}'
+                   rel='external nofollow' class='url'>
+                    {{ user.displayName }}
+                </a>
+            {% else %}
+                {% set author = comment.author %}
+                {% if author is defined and author is not null %}
+                    {{ author }}
+                {% else %}
+                    Guest
+                {% endif %}
+            {% endif %}
+        </cite>
+    </span>
+    <a class="comment-time" href="#comment-{{ comment.id }}">{{ comment.created|relativeTime }}</a>
+</div>

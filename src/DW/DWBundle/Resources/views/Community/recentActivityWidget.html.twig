@@ -1,0 +1,29 @@
+<div id="dp-comments-2" class="widget widget-activity">
+    <div class="widget-header">
+        <h2 class="widget-title">Recent Activity</h2>
+    </div>
+
+    <div class="item-options" id="activity-options">
+        <a href="" data-tid="#tab-activity-all" class="selected">All</a>
+        | <a href="" data-tid="#tab-activity-comments">Comments</a>
+        | <a href="" data-tid="#tab-activity-likes">Likes</a>
+    </div>
+
+    <div id="widget-activity-recent">
+        <ul id="tab-activity-all" class="has-avatar recent-activity-content">
+            {{ include("DocumentaryWIREBundle:Community:recentActivityWidgetAll.html.twig") }}
+        </ul>
+
+        <ul id="tab-activity-comments" class="has-avatar recent-activity-content lazy-load">
+            {{ include("DocumentaryWIREBundle:Community:recentActivityWidgetComments.html.twig") }}
+        </ul>
+
+        <ul id="tab-activity-likes" class="has-avatar recent-activity-content lazy-load">
+            {{ include("DocumentaryWIREBundle:Community:recentActivityWidgetLikes.html.twig") }}
+        </ul>
+
+        <div class="see-more">
+            <a class="btn btn-black" href="{{ url('documentary_wire.show_community') }}">See More</a>
+        </div>
+    </div>
+</div>

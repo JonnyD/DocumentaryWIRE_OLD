@@ -1,0 +1,14 @@
+<div id="categories-2" class="widget widget_categories">
+    <div class="widget-header">
+        <h3 class="widget-title">Duration</h3>
+    </div>
+    <ul>
+        {% for duration in durationWidget() %}
+            <li class="cat-item cat-item-1">
+                <a href="{{ url('documentary_wire.show_duration', {'length': duration.slug }) }}">
+                    {{ duration.title }} {% if duration.description != "" %}
+                    ({{ duration.description }}) {% endif %}</a> ({{ duration.amount }})
+            </li>
+        {% endfor %}
+    </ul>
+</div>

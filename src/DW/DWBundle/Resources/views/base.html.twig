@@ -1,0 +1,43 @@
+{{ include('DocumentaryWIREBundle:Main:head.html.twig') }}
+
+{% block body %}
+<body class="home-page logged-in home page page-id-5 page-template page-template-template-home-php  no-js">
+
+	<div id="page">
+
+		{{ include('DocumentaryWIREBundle:Main:header.html.twig') }}
+
+        {{ include('DocumentaryWIREBundle:Main:navigation.html.twig') }}
+
+        {% block featured %}
+        {% endblock %}
+
+        {% block wall %}
+        {% endblock %}
+
+        {% block main %}
+            <div id="main">
+                <div class="wrap cf">
+
+                    <div id="content">
+                        {% block content %}
+
+                        {% endblock %}
+                    </div><!-- end #content -->
+
+                    {% block sidebar %}
+                        {{ include('DocumentaryWIREBundle:Main:sidebar.html.twig') }}
+                    {% endblock %}
+
+                </div>
+
+            </div><!-- end #main -->
+        {% endblock %}
+			
+		{{ include('DocumentaryWIREBundle:Main:footer.html.twig') }}
+		
+	</div><!-- end #page -->
+
+</body>
+{% endblock %}
+</html>

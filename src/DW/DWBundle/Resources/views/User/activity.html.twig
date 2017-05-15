@@ -1,0 +1,182 @@
+<!--<div class="item-list-tabs no-ajax" id="subnav" role="navigation">
+    <ul>
+        <li id="just-me-personal-li"  class="current selected">
+            <a id="just-me" href="http://www.documentarywire.com/members/Stephanie_Wood/activity/">Personal</a>
+        </li>
+        <li id="activity-mentions-personal-li" >
+            <a id="activity-mentions" href="http://www.documentarywire.com/members/Stephanie_Wood/activity/mentions/">Mentions</a>
+        </li>
+        <li id="activity-favs-personal-li" >
+            <a id="activity-favs" href="http://www.documentarywire.com/members/Stephanie_Wood/activity/favorites/">Favorites</a>
+        </li>
+        <li id="activity-friends-personal-li" >
+            <a id="activity-friends" href="http://www.documentarywire.com/members/Stephanie_Wood/activity/friends/">Friends</a>
+        </li><li id="activity-groups-personal-li" >
+            <a id="activity-groups" href="http://www.documentarywire.com/members/Stephanie_Wood/activity/groups/">Groups</a>
+        </li>
+        <li id="activity-filter-select" class="last">
+            <label for="activity-filter-by">Show:</label>
+            <select id="activity-filter-by">
+                <option value="-1">Everything</option>
+                <option value="activity_update">Updates</option>
+                <option value="new_blog_post">Posts</option>
+                <option value="new_blog_comment">Comments</option>
+                <option value="friendship_accepted,friendship_created">Friendships</option>
+                <option value="new_forum_topic">Forum Topics</option>
+                <option value="new_forum_post">Forum Replies</option>
+                <option value="created_group">New Groups</option>
+                <option value="joined_group">Group Memberships</option>
+                <option value="bbp_topic_create">Topics</option>
+                <option value="bbp_reply_create">Replies</option>
+            </select>
+        </li>
+    </ul>
+</div> .item-list-tabs -->
+
+<div class="activity" role="main">
+    <noscript>
+        <div class="pagination">
+            <div class="pag-count">Viewing item 1 to 1 (of 1 items)</div>
+            <div class="pagination-links"></div>
+        </div>
+    </noscript>
+
+
+    <ul id="activity-stream" class="activity-list item-list">
+        {% for activityItem in activity %}
+            {% set user = activityItem.user %}
+            {% set username = user.username %}
+            {% set displayName = user.displayName %}
+            {% set avatarUrl = getAvatar(user, 'avatar50') %}
+            {% if  user.avatar is not null %}
+                {% set avatarUrl = asset(avatarUrl) %}
+            {% endif %}
+
+            {% set activityType = activityItem.type %}
+            {% set activityId = activityItem.id %}
+            {% set activityUsername = activityItem.user.username %}
+
+            {% if activityType == "follow" %}
+                <li class="activity-item" id="activity-{{ activityId }}">
+                    <div class="activity-avatar">
+                        <a href="{{ path('documentary_wire_show_user', {'username': activityUsername }) }}">
+                            <img alt="Profile picture of {{ displayName }}" src="{{ avatarUrl }}"
+                                 class="avatar" width="50" height="50"/>
+                        </a>
+                    </div>
+
+                    <div class="activity-content">
+                        <div class="activity-header">
+                            <p>
+                                <a href="{{ path('documentary_wire_show_user', {'username': activityUsername }) }}"
+                                   title="{{ displayName }}">
+                                    {{ displayName }}
+                                </a> is following {{ activityItem.data.username }}
+                                <a href="http://www.documentarywire.com/activity/p/6152/" class="view activity-time-since" title="View Discussion">
+                                    <span class="time-since">{{ activityItem.created|relativeTime }}</span>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </li>
+            {% elseif activityItem.type == "like" %}
+                {% set documentaryTitle = activityItem.data.documentaryTitle %}
+                {% set documentarySlug = activityItem.data.documentarySlug %}
+                {% set documentaryThumbnail = activityItem.data.documentaryThumbnail %}
+                {% set documentaryExcerpt = activityItem.data.documentaryExcerpt %}
+
+                <li class="activity-item" id="activity-{{ activityId }}">
+                    <div class="activity-avatar">
+                        <a href="{{ path('documentary_wire_show_user', {'username': activityUsername }) }}">
+                            <img alt="Profile picture of {{ displayName }}" src="{{ avatarUrl }}" class="avatar" />
+                        </a>
+                    </div>
+
+                    <div class="activity-content">
+                        <div class="activity-header">
+                            <p>
+                                <a href="{{ path('documentary_wire_show_user', {'username': activityUsername }) }}"
+                                   title="{{ displayName }}">
+                                    {{ displayName }}
+                                </a> favorited
+                                <a href="{{ path('documentary_wire_show_documentary', {'slug': documentarySlug }) }}">
+                                    {{ documentaryTitle }}
+                                </a>
+                                <span class="time-since">{{ activityItem.created|relativeTime }}</span>
+                            </p>
+                        </div>
+
+                        <div class="activity-inner">
+                            <p>
+                                        <span class="left">
+                                            <img class="activity-thumb"
+                                                 src="{{ asset(documentaryThumbnail) }}"
+                                                 width="80"
+                                                 height="100" />
+                                        </span>
+                                {{ documentaryExcerpt }}
+                            </p>
+                        </div>
+                    </div>
+                </li>
+            {% elseif activityItem.type == "comment" %}
+                {% set documentaryTitle = activityItem.data.documentaryTitle %}
+                {% set documentarySlug = activityItem.data.documentarySlug %}
+                {% set documentaryThumbnail = activityItem.data.documentaryThumbnail %}
+                {% set comment = activityItem.data.comment %}
+
+                <li class="activity-item" id="activity-{{ activityId }}">
+                    <div class="activity-avatar">
+                        <a href="{{ path('documentary_wire_show_user', {'username': activityUsername }) }}">
+                            <img alt="Profile picture of {{ activityUsername }}" src="{{ avatarUrl }}" class="avatar" />
+                        </a>
+                    </div>
+
+                    <div class="activity-content">
+                        <div class="activity-header">
+                            <p>
+                                <a href="{{ path('documentary_wire_show_user', {'username': activityUsername }) }}"
+                                   title="{{ displayName }}">
+                                    {{ displayName }}
+                                </a>
+                                commented on
+                                <a href="{{ path('documentary_wire_show_documentary', {'slug': documentarySlug }) }}">
+                                    {{ documentaryTitle }}
+                                </a>
+
+                                <span class="time-since">{{ activityItem.created|relativeTime }}</span>
+                            </p>
+                        </div>
+                        <div class="activity-inner">
+                            <p>{{ comment[:300] ~ '...' }}</p>
+                        </div>
+                    </div>
+                </li>
+            {% elseif activityItem.type == "joined" %}
+                <li class="activity-item" id="activity-{{ activityId }}">
+                    <div class="activity-avatar">
+                        <a href="{{ path('documentary_wire_show_user', {'username': activityUsername }) }}">
+                            <img alt="Profile picture of {{ displayName }}" src="{{ avatarUrl }}" class="avatar" />
+                        </a>
+                    </div>
+
+                    <div class="activity-content">
+                        <div class="activity-header">
+                            <p>
+                                <a href="{{ path('documentary_wire_show_user', {'username': activityUsername }) }}"
+                                   title="{{ displayName }}">
+                                    {{ displayName }}
+                                </a>
+                                joined
+
+                                <span class="time-since">{{ activityItem.created|relativeTime }}</span>
+                            </p>
+                        </div>
+                    </div>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        {{ knp_pagination_render(activity, 'DocumentaryWIREBundle:Pagination:sliding.html.twig') }}
+    </ul>
+</div><!-- .activity -->

@@ -1,0 +1,44 @@
+{% extends 'DocumentaryWIREBundle:User:base.html.twig' %}
+
+{% block userBody %}
+    <div id="item-body">
+        <div id="members-dir-list" class="members dir-list">
+            <ul id="members-list" class="item-list" role="main">
+                {% for follow in following %}
+                    {% set currentUser = follow.following %}
+
+                    <li>
+                        <div class="item-avatar">
+                            <a href=""><img alt="Profile picture of {{ currentUser.username }}"
+                                            src="{{ asset(currentUser.avatar) }}" class="avatar" /></a>
+                        </div>
+
+                        <div class="item">
+                            <div class="item-title">
+                                <a href="http://www.documentarywire.com/members/Nikki_Mullins/">{{ currentUser.username }}</a>
+                            </div>
+                            <div class="item-meta"><span class="activity">active 6 hours, 14 minutes ago</span></div>
+                        </div>
+
+                        <div class="action">
+                            <div class="generic-button friendship-button is_friend" id="friendship-button-428">
+                                <span class="follow-user">
+                                    {% if currentUser != loggedInUser %}
+                                        {% if currentUser in loggedInUserFollowing %}
+                                            <a class="unfollow" data-uid="{{ currentUser.id }}">Unfollow</a>
+                                        {% else %}
+                                            <a class="follow" data-uid="{{ currentUser.id }}">Follow</a>
+                                        {% endif %}
+                                    {% endif %}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="clear"></div>
+                    </li>
+                {% endfor %}
+            </ul>
+
+        </div><!-- #members-dir-list -->
+    </div><!-- #item-body -->
+{% endblock %}

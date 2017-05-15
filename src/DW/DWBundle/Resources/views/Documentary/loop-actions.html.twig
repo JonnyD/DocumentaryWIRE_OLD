@@ -1,0 +1,110 @@
+{% set routeParams = app.request.attributes.get('_route_params') %}
+{% set routeParams = routeParams|merge(app.request.query.all) %}
+{% set currentRoute = app.request.attributes.get('_route') %}
+
+{% set orderBy = 'date' %}
+{% if routeParams.orderBy is defined
+    and routeParams.orderBy != "" %}
+    {% set orderBy = routeParams.orderBy %}
+{% endif %}
+
+{% set order = 'desc' %}
+{% if routeParams.order is defined
+    and routeParams.order != "" %}
+    {% set order = routeParams.order %}
+{% endif %}
+
+<div class="loop-actions cf">
+    <div class="sort">
+        <span class="prefix">Sort:</span>
+
+			<span class="orderby">
+                 <a href="{{ url(currentRoute, routeParams|merge({'orderBy': 'date'})) }}"
+                    title="Sort by Date" class="date {% if orderBy == 'date' %}current{% endif %}">
+                     <i>Date</i>
+                 </a>
+
+			<span class="sep">|</span>
+				<a href="{{ url(currentRoute, routeParams|merge({'orderBy': 'title'})) }}"
+                   title="Sort by Title" class="title {% if orderBy == 'title' %}current{% endif %}">
+                    <i>Title</i>
+                </a>
+
+			<span class="sep">|</span>
+				<a href="{{ url(currentRoute, routeParams|merge({'orderBy': 'views'})) }}"
+                   title="Sort by Views" class="views {% if orderBy == 'views' %}current{% endif %}">
+                    <i>Views</i>
+                </a>
+
+			<span class="sep">|</span>
+				<a href="{{ url(currentRoute, routeParams|merge({'orderBy': 'likes'})) }}"
+                   title="Sort by Likes" class="likes {% if orderBy == 'likes' %}current{% endif %}">
+                    <i>Likes</i>
+                </a>
+
+			<span class="sep">|</span>
+				<a href="{{ url(currentRoute, routeParams|merge({'orderBy': 'comments'})) }}"
+                   title="Sort by Comments" class="comments {% if orderBy == 'comments' %}current{% endif %}">
+                    <i>Comments</i>
+                </a>
+
+			<span class="sep">|</span>
+				<a href="{{ url(currentRoute, routeParams|merge({'orderBy': 'rand'})) }}"
+                   title="Sort Randomly" class="rand {% if orderBy == 'rand' %}current{% endif %}">
+                    <i>Random</i>
+                </a>
+			</span><!-- end .orderby -->
+
+        <select class="orderby-select">
+            <option value="/wordpress/?cat=2&orderby=date">Date</option>
+            <option value="/wordpress/?cat=2&orderby=title">Title</option>
+            <option value="/wordpress/?cat=2&orderby=views">Views</option>
+            <option value="/wordpress/?cat=2&orderby=likes">Likes</option>
+            <option value="/wordpress/?cat=2&orderby=comments">Comments</option>
+            <option value="/wordpress/?cat=2&orderby=rand">Random</option>
+        </select>
+
+			<span class="order">
+                {% if order == 'desc' %}
+                    <a class="asc"
+                       href="{{ url(currentRoute, routeParams|merge({'order': 'asc'})) }}"
+                       title="Sort Ascending">Sort Ascending</a>
+                {% elseif order == 'asc' %}
+                    <a class="desc"
+                       href="{{ url(currentRoute, routeParams|merge({'order': 'desc'})) }}"
+                       title="Sort Descending">Sort Desccending</a>
+                {% endif %}
+			</span><!-- end .order -->
+
+    </div><!-- end .sort -->
+
+    <!--
+    <div class="view">
+        <span class="prefix">View:</span>
+        <a href="#" title="Grid View with Mini Thumbnail" data-type="grid-mini" class="grid-mini-link current">
+            <i></i>
+        </a>
+
+        <a href="#" title="Grid View with Small Thumbnail" data-type="grid-small" class="grid-small-link">
+            <i></i>
+        </a>
+
+        <a href="#" title="Grid View with Medium Thumbnail" data-type="grid-medium" class="grid-medium-link">
+            <i></i>
+        </a>
+
+        <a href="#" title="List View with Small Thumbnail" data-type="list-small" class="list-small-link">
+            <i></i>
+        </a>
+
+        <a href="#" title="List View with Medium Thumbnail" data-type="list-medium" class="list-medium-link">
+            <i></i>
+        </a>
+
+        <a href="#" title="List View with Large Thumbnail" data-type="list-large" class="list-large-link">
+            <i></i>
+        </a>
+
+    </div> end .view -->
+
+</div><!-- end .loop-actions -->

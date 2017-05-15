@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+Disallow: /tag/
+Disallow: /year/
+Disallow: /duration/
+Disallow: /community/
+Disallow: /user/
+Disallow: /members/
+Disallow: /released/
+Disallow: /length/
+Disallow: /wp-content/
+Disallow: /wp-includes/
+Disallow: /activity/
+
+User-agent: ia_archiver
+Disallow: /
+
+Sitemap: http://www.documentarywire.com/sitemap.xml

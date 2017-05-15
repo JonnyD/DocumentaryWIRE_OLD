@@ -1,0 +1,7 @@
+{{ form_start(form, { 'attr': {'id': 'commentform'} }) }}
+{{ form_errors(form) }}
+<p class="comment-form-comment">
+{{ form_row(form.comment, { 'id': 'comment', 'attr': {'cols': 45, 'rows': 8,
+    'aria-required': true, 'placeholder': 'Share your thoughts'}}) }}
+</p>
+{{ form_end(form) }}

@@ -1,0 +1,38 @@
+<div id="comments">
+    <div class="section-header">
+        <h2 class="section-title" id="comments-title">
+            {% if commentCount == 1 %}
+                {{ commentCount }} Comment - Join the conversation
+            {% elseif commentCount == 0 %}
+                {{ commentCount }} Comments - Be the first
+            {% else %}
+                {{ commentCount }} Comments
+            {% endif %}
+        </h2>
+    </div>
+
+    {% if app.user %}
+        {{ include('DocumentaryWIREBundle:Comment:form.html.twig', {'form': commentForm}) }}
+    {% else %}
+        <div style="padding:10px">
+            To post a comment please
+            <a href="{{ path('documentary_wire.register') }}">sign up</a> or
+            <a href="{{ path('login') }}">login</a>.
+        </div>
+    {% endif %}
+
+    <ul class="comment-list">
+        {% for comment in comments %}
+            {{ include('DocumentaryWIREBundle:Comment:show.html.twig') }}
+            {% if comment.hasChildren %}
+                has children
+                {% for child in comment.children %}
+                    {{ child.comment }} <br />
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    </ul>
+
+    {{ knp_pagination_render(comments, 'DocumentaryWIREBundle:Pagination:documentaryPagination.html.twig') }}
+
+</div><!-- end #comments -->

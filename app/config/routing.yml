@@ -1,0 +1,39 @@
+login:
+    pattern:   /login/
+    defaults:  { _controller: DocumentaryWIREBundle:Security:login }
+
+login_check:
+    pattern:   /login_check
+
+logout:
+    path:   /logout
+
+hwi_oauth_login:
+    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+    prefix:   /login/
+
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix:   /connect
+
+hwi_oauth_connect_facebook:
+    pattern: /connect/facebook
+    defaults: { _controller: DocumentaryWIREBundle:Connect:connectService }
+
+hwi_oauth_connect_service:
+    pattern: /connect/service/{service}
+    defaults: { _controller: DocumentaryWIREBundle:Connect:connectService }
+
+hwi_oauth_connect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
+    prefix:   /connect
+
+facebook_login:
+    pattern: /oauth-login/check-facebook
+
+_liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.xml"
+
+documentary_wire:
+    resource: "@DocumentaryWIREBundle/Resources/config/routing.yml"
+    prefix:   /

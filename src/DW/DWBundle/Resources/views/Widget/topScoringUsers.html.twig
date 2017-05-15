@@ -1,0 +1,47 @@
+<div id="top-scoring-users" class="widget widget-scorers">
+    <div class="widget-header">
+        <h2 class="widget-title">Top Members</h2>
+    </div>
+    <div style="width:100%; overflow:hidden; margin-bottom: -30px">
+    <div style="float: left; width:50%;">
+    <ul class="has-avatar">
+        {% for user in topScoringUsers()|slice(0,4) %}
+            {% set avatarUrl = getAvatar(user, "avatar50") %}
+            {% if  user.avatar is not null %}
+                {% set avatarUrl = asset(avatarUrl) %}
+            {% endif %}
+            <li>
+                <img alt="{{ user.username }}" src='{{ avatarUrl }}'
+                     class="avatar"/>
+                <div class="data">
+                    <span class="author">
+                       <a href="{{ url('documentary_wire_show_user', {'username': user.username }) }}">
+                           {{ user.displayName }}</a> <br />{{ user.score }} points
+                    </span>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+    </div>
+    <div style="float: left; width: 50%;">
+        <ul class="has-avatar">
+            {% for user in topScoringUsers()|slice(4,7) %}
+                {% set avatarUrl = getAvatar(user, "avatar50") %}
+                {% if  user.avatar is not null %}
+                    {% set avatarUrl = asset(avatarUrl) %}
+                {% endif %}
+                <li>
+                    <img alt="{{ user.username }}" src='{{ avatarUrl }}'
+                         class="avatar"/>
+                    <div class="data">
+                    <span class="author">
+                       <a href="{{ url('documentary_wire_show_user', {'username': user.username }) }}">
+                           {{ user.displayName }}</a> <br />{{ user.score }} points
+                    </span>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    </div>
+</div>

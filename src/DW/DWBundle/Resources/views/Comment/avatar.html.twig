@@ -1,0 +1,17 @@
+<div class="comment-avatar">
+    {% set user = comment.user %}
+    {% if user is not defined or user is null %}
+        <img alt='' src='{{ getGravatar(comment.email) }}' class='avatar avatar-48 photo'
+             height='48' width='48' />
+    {% else %}
+        {% set userAvatar = comment.user.avatar %}
+        {% if userAvatar is not defined or userAvatar is null %}
+            <img alt='' src='{{ getGravatar(user.email) }}' class='avatar avatar-48 photo'
+                 height='48' width='48' />
+        {% else %}
+            {% set avatarUrl = 'uploads/images/avatar/' ~ userAvatar %}
+            <img alt='' src='{{ asset(avatarUrl) }}' class='avatar avatar-48 photo'
+                 height='48' width='48' />
+        {% endif %}
+    {% endif %}
+</div>

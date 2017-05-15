@@ -1,0 +1,32 @@
+{% for activityItem in activityWidget("comments") %}
+    {% set type = activityItem.type %}
+    {% set user = activityItem.parent.user %}
+    {% set username = user.username %}
+    {% set avatar = getAvatar(user, "avatar50") %}
+    {% set displayName = user.name %}
+
+    {% set data = activityItem.parent.data %}
+    {% set documentarySlug = data.documentarySlug %}
+    {% set documentaryTitle = data.documentaryTitle %}
+    {% set documentaryThumbnail = data.documentaryThumbnail %}
+    {% set comment = data.comment %}
+
+    <li>
+        <a href="{{ url('documentary_wire_show_user', {'username': username }) }}">
+            <img alt='{{ username }}' src='{{ asset(avatar) }}'
+                 class='avatar avatar-48 photo avatar-default' height='48' width='48' /></a>
+        <div class="data">
+                <span class="author">
+                    <a href="{{ url('documentary_wire_show_user', {'username': username }) }}">
+                        {{ displayName }}</a> commented on
+                    <a href="{{ url('documentary_wire_show_documentary', {'slug':documentarySlug }) }}">
+                        {{ documentaryTitle }}</a>
+                </span>
+            <p class="excerpt">
+                {{ comment|slice(0, 100) }}...
+                <br />
+                <a class="reply" href="{{ url('documentary_wire_show_documentary', {'slug':documentarySlug }) }}">reply</a>
+            </p>
+        </div>
+    </li>
+{% endfor %}

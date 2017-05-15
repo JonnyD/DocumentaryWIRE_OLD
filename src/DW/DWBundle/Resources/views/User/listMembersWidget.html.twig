@@ -1,0 +1,42 @@
+<div id="bp_core_recently_active_widget-2"
+     class="widget widget_bp_core_recently_active_widget">
+    <div class="widget-header">
+        <h2 class="widget-title">Members</h2>
+    </div>
+
+    <div class="item-options" id="members-list-options">
+        <a href="#" data-tid="#tab-recently-active" class="selected">Active</a>
+        | <a href="#" data-tid="#tab-newest-members">Newest</a>
+    </div>
+
+    <div id="tab-recently-active" class="members-widget-content">
+        {% for user in userWidget('active') %}
+            <div class="avatar-block">
+                <div class="item-avatar">
+                    <a href="{{ url('documentary_wire_show_user', {'username': user.username }) }}"
+                       title="{{ user.displayName }}" rel="nofollow">
+                        <img src="{{ asset(getAvatar(user, "avatar50")) }}"
+                             class="avatar user-1-avatar avatar- photo"
+                             width="50" height="50" alt="Profile picture of {{ user.displayName }}" />
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div id="tab-newest-members" class="members-widget-content">
+        {% for user in userWidget('newest') %}
+            <div class="avatar-block">
+                <div class="item-avatar">
+                    <a href="{{ url('documentary_wire_show_user', {'username': user.username }) }}"
+                       title="{{ user.displayName }}" rel="nofollow">
+                        <img src="{{ asset(getAvatar(user, "avatar50")) }}"
+                             class="avatar user-1-avatar avatar- photo"
+                             width="50" height="50" alt="Profile picture of {{ user.displayName }} 2" />
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+</div>

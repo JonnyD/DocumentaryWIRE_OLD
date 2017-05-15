@@ -1,0 +1,10 @@
+{% extends 'DocumentaryWIREBundle:Admin:base.html.twig' %}
+
+{% block content %}
+    {{ documentary.title }} <br />
+    {{ documentary.description }} <br />
+
+    {% for comment in documentary.comments %}
+        {{ comment.comment }}
+    {% endfor %}
+{% endblock %}

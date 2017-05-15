@@ -1,0 +1,22 @@
+{# default Sliding pagination control implementation #}
+
+{% if pageCount > 1 %}
+    <div class="comment-nav pag-nav">
+        {% if previous is defined %}
+            <a class="prev page-numbers" href="{{ url(route, query|merge({(pageParameterName): previous})) }}">&laquo; Previous</a>
+        {% endif %}
+
+        {% for page in pagesInRange %}
+            {% if page != current %}
+                <a class="page-numbers" href="{{ url(route, query|merge({(pageParameterName): page})) }}">{{ page }}</a>
+            {% else %}
+                <span class="page-numbers current">{{ page }}</span>
+            {% endif %}
+
+        {% endfor %}
+
+        {% if next is defined %}
+            <a class="next page-numbers" href="{{ url(route, query|merge({(pageParameterName): next})) }}">Next &raquo;</a>
+        {% endif %}
+    </div>
+{% endif %}

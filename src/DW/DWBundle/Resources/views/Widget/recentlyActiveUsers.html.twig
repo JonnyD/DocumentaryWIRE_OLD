@@ -1,0 +1,29 @@
+<div id="bp_core_recently_active_widget-2"
+     class="widget widget_bp_core_recently_active_widget buddypress widget">
+    <div class="widget-header"><h3 class="widget-title">Recently Active Members</h3></div>
+
+    <!--<div class="item-options" id="members-list-options">
+        <a href="http://www.documentarywire.com/members" id="newest-members" >Newest</a>
+        |  <a href="http://www.documentarywire.com/members" id="recently-active-members" class="selected">Active</a>
+        | <a href="http://www.documentarywire.com/members" id="popular-members" >Popular</a>
+    </div>-->
+
+    {% for user in users %}
+        <div class="avatar-block">
+            <div class="item-avatar">
+                <a href="" title="admin">
+                    <img src="http://gravatar.com/avatar/ae5763288236e5256370b5627baae2ac?d=mm&amp;s=50&amp;r=G" class="avatar user-1-avatar avatar- photo" width="50" height="50" alt="Profile picture of admin" /></a>
+            </div>
+        </div>
+
+       <!-- <a href="http://www.documentarywire.com/members/Jane_Stopher/" title="{{ user.username }}"
+           data-popover="true"
+           data-html=true
+           data-content='<img src="{{ asset(user.avatar) }}" alt="{{ documentary.title }}"
+         width="80" height="80" style="float:left; margin: 0 10px 10px 0"/> <strong>{{ documentary.title }}
+         </strong> <br /> {{ documentary.length }} <div style="clear:both"></div> {{ documentary.excerpt }} <br />'>
+            <img alt="Profile picture of {{ user.username }}" src="https://fbcdn-profile-a.akamaihd.net/hprofile-ak-ash1/370048_100003382358197_341710685_q.jpg" class="avatar" />
+        </a>-->
+    {% endfor %}
+
+</div>

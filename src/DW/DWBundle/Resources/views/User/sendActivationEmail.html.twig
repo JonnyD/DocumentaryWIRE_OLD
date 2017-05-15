@@ -1,0 +1,65 @@
+{% extends 'DocumentaryWIREBundle::base2.html.twig' %}
+
+{% block title %}
+    Send Activation Email
+{% endblock %}
+
+{% block content %}
+
+    <div id="signup_form" class="standard-form">
+        <h2>Send Activation Email</h2>
+        {% set flashMessages = app.session.flashbag.get('send-activation-email') %}
+
+        {% for flashMessage in flashMessages %}
+            <div class="flash-notice">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+
+        {% if flashMessages|length == 0 %}
+        <div class="register-section" id="basic-details-section">
+            {{ form_start(form, {'attr': {'id': 'send-activation-email'}}) }}
+            {{ form_errors(form) }}
+            {{ form_row(form.email) }}
+            {{ form_end(form) }}
+        </div>
+        {% endif %}
+    </div>
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

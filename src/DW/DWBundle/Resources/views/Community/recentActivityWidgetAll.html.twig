@@ -1,0 +1,130 @@
+{% for activityItem in activityWidget("all") %}
+    {% set type = activityItem.type %}
+    {% set user = activityItem.parent.user %}
+    {% set username = user.username %}
+    {% set avatar = getAvatar(user, "avatar50") %}
+    {% set displayName = user.name %}
+
+    {% if type == "added" %}
+        {% set data = activityItem.parent.data %}
+        {% set documentarySlug = data.documentarySlug %}
+        {% set documentaryTitle = data.documentaryTitle %}
+        {% set documentaryThumbnail = data.documentaryThumbnail %}
+        {% set documentaryExcerpt = data.documentaryExcerpt %}
+
+        <li class="activity-item">
+            <a href="{{ url('documentary_wire_show_user', {'username': username }) }}">
+                <img alt="{{ username }}" src='{{ asset(avatar) }}'
+                     class='avatar avatar-48 photo avatar-default' height='48' width='48' /></a>
+            <div class="data">
+                    <span class="author">
+                        <a href="{{ url('documentary_wire_show_user', {'username': username }) }}">
+                            {{ displayName }}</a> added a new documentary
+                        <a href="{{ url('documentary_wire_show_documentary', {'slug': documentarySlug }) }}">
+                            {{ documentaryTitle }}</a>
+                        {% if activityItem.child is defined %}
+                            plus {{ activityItem.child|length }} more
+                        {% endif %}
+                    </span>
+                <p class="excerpt">
+                    <img class="image" width="50" height="70"
+                         src="{{ asset(documentaryThumbnail | imagine_filter('cover50x70')) }}" />
+
+                    {% if activityItem.child is defined %}
+                        {% for child in activityItem.child|slice(0,2) %}
+                            <img class="image" width="50" height="70"
+                                 src="{{ asset(child.data.documentaryThumbnail  | imagine_filter('cover50x70')) }}" />
+                        {% endfor %}
+                    {% else %}
+                        {{ documentaryExcerpt[:90] ~ '...' }}
+                    {% endif %}
+                </p>
+            </div>
+        </li>
+    {% elseif type == "like" %}
+        {% set data = activityItem.parent.data %}
+        {% set documentarySlug = data.documentarySlug %}
+        {% set documentaryTitle = data.documentaryTitle %}
+        {% set documentaryThumbnail = data.documentaryThumbnail %}
+        {% set documentaryExcerpt = data.documentaryExcerpt %}
+
+        <li class="activity-item">
+            <a href="{{ url('documentary_wire_show_user', {'username': username }) }}">
+                <img alt='{{ username }}' src='{{ asset(avatar) }}'
+                     class='avatar avatar-48 photo avatar-default' height='48' width='48' /></a>
+            <div class="data">
+                    <span class="author">
+                        <a href="{{ url('documentary_wire_show_user', {'username': username }) }}">
+                            {{ displayName }}</a> favorited
+                        <a href="{{ url('documentary_wire_show_documentary', {'slug': documentarySlug }) }}">
+                            {{ documentaryTitle }}</a>
+                        {% if activityItem.child is defined %}
+                            and {{ activityItem.child|length }} more documentaries
+                        {% endif %}
+                    </span>
+                <p class="excerpt">
+                    <img class="image" width="50" height="70"
+                         src="{{ asset(documentaryThumbnail | imagine_filter('cover50x70')) }}" />
+
+                    {% if activityItem.child is defined %}
+                        {% for child in activityItem.child|slice(0,2) %}
+                            <img class="image" width="50" height="70"
+                                 src="{{ asset(child.data.documentaryThumbnail  | imagine_filter('cover50x70')) }}" />
+                        {% endfor %}
+                    {% else %}
+                        {{ documentaryExcerpt[:90] ~ '...' }}
+                    {% endif %}
+                </p>
+            </div>
+        </li>
+    {% elseif type == "comment" %}
+        {% set data = activityItem.parent.data %}
+        {% set documentarySlug = data.documentarySlug %}
+        {% set documentaryTitle = data.documentaryTitle %}
+        {% set documentaryThumbnail = data.documentaryThumbnail %}
+        {% set comment = data.comment %}
+
+        <li>
+            <a href="{{ url('documentary_wire_show_user', {'username': username }) }}">
+                <img alt='{{ username }}' src='{{ asset(avatar) }}'
+                     class='avatar avatar-48 photo avatar-default' height='48' width='48' /></a>
+            <div class="data">
+                    <span class="author">
+                        <a href="{{ url('documentary_wire_show_user', {'username': username }) }}">
+                            {{ displayName }}</a> commented on
+                        <a href="{{ url('documentary_wire_show_documentary', {'slug':documentarySlug }) }}">
+                            {{ documentaryTitle }}</a>
+                    </span>
+                <p class="excerpt">
+                    {{ comment|slice(0, 100) }}...
+                    <br />
+                    <a class="reply" href="{{ url('documentary_wire_show_documentary', {'slug':documentarySlug }) }}">reply</a>
+                </p>
+            </div>
+        </li>
+    {% elseif type == "joined" %}
+        <li class="activity-item">
+            <a href="{{ url('documentary_wire_show_user', {'username': username }) }}">
+                <img alt='{{ username }}' src='{{ asset(avatar) }}'
+                     class='avatar avatar-48 photo avatar-default' height='48' width='48' /></a>
+            <div class="data">
+                    <span class="author">
+                        <a href="{{ url('documentary_wire_show_user', {'username': username }) }}">
+                            {{ displayName }}</a>
+                        {% if activityItem.child is defined %}
+                            and {{ activityItem.child|length }} more people
+                        {% endif %}
+                        joined
+                    </span>
+                <p class="excerpt">
+                    {% if activityItem.child is defined %}
+                        {% for child in activityItem.child|slice(0,12) %}
+                            <img class="tiny-image" alt='{{ child.user.username }}' src='{{ asset(getAvatar(child.user, "avatar30")) }}'
+                                  height='30' width='30' />
+                        {% endfor %}
+                    {% endif %}
+                </p>
+            </div>
+        </li>
+    {% endif %}
+{% endfor %}

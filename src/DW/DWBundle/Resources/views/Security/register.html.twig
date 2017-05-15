@@ -1,0 +1,41 @@
+{% extends 'DocumentaryWIREBundle::base2.html.twig' %}
+
+{% block title %}Sign Up | DocumentaryWIRE{% endblock %}
+{% block description %}Enjoy the benefits of becoming a member{% endblock %}
+
+{% block content %}
+
+    <div id="signup_form" class="standard-form">
+        <h2>Sign Up</h2>
+
+        {% set flashMessages = app.session.flashbag.get('registered') %}
+
+        {% for flashMessage in flashMessages %}
+            <div class="flash-notice">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+
+
+        {% if flashMessages|length == 0 %}
+        <p>Registering for this site is easy, just fill in the fields below or simply connect via your Facebook profile</p>
+
+        <a href="{{ path('hwi_oauth_connect_facebook') }}">
+            <div class="facebook_sign_in facebook_sign_in_button"></div>
+        </a>
+        <br />
+        <div class="register-section" id="basic-details-section">
+        {{ form_start(registrationForm, {'attr': {'id': 'registration'}}) }}
+            {{ form_errors(registrationForm) }}
+            {{ form_row(registrationForm.username) }}
+            {{ form_row(registrationForm.email) }}
+            {{ form_row(registrationForm.password) }}
+        {{ form_end(registrationForm) }}
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+    {{ include('DocumentaryWIREBundle:User:listMembersWidget.html.twig') }}
+{% endblock %}

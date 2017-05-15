@@ -1,0 +1,65 @@
+{% extends 'DocumentaryWIREBundle::base2.html.twig' %}
+
+{% block title %}Contact Us | DocumentaryWIRE{% endblock %}
+{% block description %}Get in touch with DocumentaryWIRE{% endblock %}
+
+{% block content %}
+    <div id="signup_form" class="standard-form">
+        <h2>Contact Us</h2>
+        {% set flashMessages = app.session.flashbag.get('contact-message') %}
+
+        {% for flashMessage in flashMessages %}
+            <div class="flash-notice">
+                {{ flashMessage }}
+            </div>
+        {% endfor %}
+
+        {% if flashMessages|length == 0 %}
+            <div class="register-section" id="basic-details-section">
+                {{ form_start(form, {'attr': {'id': 'contact-us'}}) }}
+                {{ form_errors(form) }}
+                {{ form_row(form.subject) }}
+                {{ form_row(form.yourEmailAddress) }}
+                {{ form_row(form.message) }}
+                {{ form_end(form) }}
+            </div>
+        {% endif %}
+    </div>
+
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+{% endblock %}
+
+{% block sidebar %}
+{% endblock %}

@@ -1,0 +1,30 @@
+<header id="header">
+    <div class="wrap cf">
+        <div id="branding" class="image-branding" role="banner">
+            <a id="site-logo" rel="home" href="{{ url('documentary_wire_homepage') }}">
+                <img src="{{ asset('css/images/logo.png') }}"
+                     alt="DocumentaryWIRE | Watch Free Documentaries Online"
+                     title="DocumentaryWIRE | Watch Free Documentaries Online"/>
+            </a>
+
+        </div><!-- end #branding -->
+
+        <div id="header-actions" class="cf">
+
+            <a class="btn btn-red" href="{{ url('documentary_wire_add_documentary') }}">+ Add Documentary</a>
+
+        </div><!-- end #header-actions -->
+
+        <div id="header-search">
+            <div class="searchform-div">
+                <form method="get" class="searchform" action="{{ url('documentary_wire.search') }}">
+                    <div class="search-text-div"><input type="text" name="s" class="search-text" value="" placeholder="Search thousands of documentaries..." /></div>
+                    <div class="search-submit-div btn"><input type="submit" class="search-submit" value="Search" /></div>
+                </form><!--end #searchform-->
+            </div>
+        </div><!-- end #header-search -->
+        <div id="sitename" class="lazy-load">
+        <h1>DocumentaryWIRE | Watch Free Documentaries Online</h1>
+            </div>
+    </div>
+</header><!-- end #header-->

@@ -1,0 +1,269 @@
+<head>
+    <!-- Meta Tags -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <!-- Title, Keywords and Description -->
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="description" content="{% block description %}{% endblock %}" />
+
+    <link rel="profile" href="http://gmpg.org/xfn/11" />
+    <link rel="shortcut icon" href="http://s.wordpress.org/favicon.ico" />
+    <link rel="pingback" href="http://localhost/documentarywire_wordpress/xmlrpc.php" />
+
+    <link rel="alternate" type="application/rss+xml" title="DocumentaryWIRE &raquo; Feed" href="http://localhost/documentarywire_wordpress/?feed=rss2" />
+    <link rel="alternate" type="application/rss+xml" title="DocumentaryWIRE &raquo; Comments Feed" href="http://localhost/documentarywire_wordpress/?feed=comments-rss2" />
+    <link rel="alternate" type="application/rss+xml" title="DocumentaryWIRE &raquo; Home Comments Feed" href="http://localhost/documentarywire_wordpress/?feed=rss2&#038;page_id=5" />
+
+    <link rel='stylesheet' id='open-sans-css'  href='//fonts.googleapis.com/css?family=Open+Sans%3A300italic%2C400italic%2C600italic%2C300%2C400%2C600&#038;subset=latin%2Clatin-ext&#038;ver=3.8.3' type='text/css' media='all' />
+    <link rel='stylesheet' id='dp-fonts-css'  href='http://fonts.googleapis.com/css?family=Arimo%3A400%2C700%7CDroid+Serif%3A400%2C700%7COpen+Sans%3A600%2C700&#038;ver=3.8.3' type='text/css' media='all' />
+    <link rel='stylesheet' id='dp-style-css'  href='{{ asset('css/style.css?ver=1.4.3') }}' type='text/css' media='all' />
+    <link rel='stylesheet' id='dp-responsive-css'  href='{{ asset('css/responsive.css?ver=1.4.3') }}' type='text/css' media='all' />
+    <link rel='stylesheet' id='bp-style-css'  href='{{ asset('css/bp-style.css') }}' type='text/css' media='all' />
+
+    <script type='text/javascript' src='{{ asset('js/jquery-2.0.3.min.js') }}'></script>
+    <script type='text/javascript' src='{{ asset('js/jquery.fitvids.js?ver=1.0') }}'></script>
+    <script type='text/javascript' src='{{ asset('js/jquery.masonry.min.js?ver=2.1.05') }}'></script>
+    <script type='text/javascript' src='{{ asset('js/modernizr.min.js?ver=2.6.2') }}'></script>
+    <script type='text/javascript' src='{{ asset('js/jquery.plugins.min.js?ver=1.4.6') }}'></script>
+    <script type='text/javascript' src='http://localhost/documentarywire_wordpress/wp-includes/js/comment-reply.min.js?ver=3.8.3'></script>
+    <script type='text/javascript' src='{{ asset('js/theme.js?ver=1.4.6') }}'></script>
+    <script type='text/javascript' src='{{ asset('js/jquery.jcarousel.js?ver=0.3.0') }}'></script>
+
+    <script type='text/javascript' src='{{ asset('js/tooltip.js') }}'></script>
+    <script type='text/javascript' src='{{ asset('js/popover.js') }}'></script>
+
+    <script type="text/javascript">
+        $(function() {
+
+            // grab the initial top offset of the navigation
+            var sticky_navigation_offset_top = $('#sticky-navigation').offset().top;
+
+            // our function that decides weather the navigation bar should have "fixed" css position or not.
+            var sticky_navigation = function(){
+                var scroll_top = $(window).scrollTop(); // our current vertical position from the top
+
+                // if we've scrolled more than the navigation, change its position to fixed to stick to top,
+                // otherwise change it back to relative
+                if (scroll_top > sticky_navigation_offset_top) {
+                    if ($("#shadow").is(":hidden")) {
+                        $('#sticky-navigation').css({ 'position': 'fixed', 'top':0, 'left':0, 'right':0, 'z-index': 100000 });
+                    }
+                } else {
+                    $('#sticky-navigation').css({ 'position': 'relative' });
+                }
+            };
+
+            // run our function on load
+            sticky_navigation();
+
+            // and run it again every time you scroll
+            $(window).scroll(function() {
+                sticky_navigation();
+            });
+
+        });
+
+        $(document).ready(function(){
+            var originalLeave = $.fn.popover.Constructor.prototype.leave;
+            $.fn.popover.Constructor.prototype.leave = function(obj){
+                var self = obj instanceof this.constructor ?
+                        obj : $(obj.currentTarget)[this.type](this.getDelegateOptions()).data('bs.' + this.type)
+                var container, timeout;
+
+                originalLeave.call(this, obj);
+
+                if(obj.currentTarget) {
+                    container = $(obj.currentTarget).siblings('.popover')
+                    timeout = self.timeout;
+                    container.one('mouseenter', function(){
+                        //We entered the actual popover – call off the dogs
+                        clearTimeout(timeout);
+                        //Let's monitor popover content instead
+                        container.one('mouseleave', function(){
+                            $.fn.popover.Constructor.prototype.leave.call(self, self);
+                        });
+                    })
+                }
+            };
+
+            $('body').popover({
+                selector: '[data-popover]',
+                trigger: 'click hover',
+                placement: 'right',
+                html: true,
+                delay: {show: 50, hide: 400},
+                content: function() {
+                    return $(this).next(".popover-content").html();
+                }
+            });
+
+            $(document).on('click', '.like-documentary .like, .like-documentary .liked', function(){
+                var el = $(this);
+
+                var actionType = el.attr("data-action");
+
+                var data = {
+                    actionType: actionType,
+                    documentaryId: el.attr("data-did")
+                };
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{{path('documentary_wire_like_documentary')}}',
+                    data: data,
+                    dataType: 'json',
+                    error: function(){
+                        alert('Error. please try again later!');
+                        el.removeClass('liking');
+                    },
+                    beforeSend: function(){
+                        el.addClass('liking');
+                    },
+                    success: function(r){
+                        alert("success");
+                        if(r.error != '') {
+                            alert(r.error);
+                            return false;
+                        }
+                        alert(actionType);
+                        if (actionType == 'like')
+                        {
+                            alert("in like");
+                            $('.like-documentary').each(function(){
+                               var like = $(this).find('.like');
+                                if(like.attr('data-did') == el.attr('data-did')) {
+                                    $(like).text("Remove from Favourites");
+                                    $(like).attr('data-action', 'unlike');
+                                }
+                            });
+                        }
+                        else if (actionType == 'unlike')
+                        {
+                            alert("in liked");
+                            $('.like-documentary').each(function(){
+                                var like = $(this).find('.unlike');
+                                if(like.attr('data-did') == el.attr('data-did')) {
+                                    $(like).text("Add to Favourites");
+                                    $(like).attr('data-action', 'like');
+                                }
+                            });
+                        }
+                    }
+                });
+            });
+
+            $(document).on('click', '.follow-user .follow, .follow-user .unfollow', function(){
+                var el = $(this);
+
+                var actionType = el.attr("data-action");
+
+                var data = {
+                    actionType: actionType,
+                    userId: el.attr("data-uid")
+                };
+
+                alert(data.actionType);
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{{path('documentary_wire_ajax_follow_user')}}',
+                    data: data,
+                    dataType: 'json',
+                    error: function(){
+                        alert('Error. please try again later!');
+                        el.removeClass('following');
+                    },
+                    beforeSend: function(){
+                        el.addClass('following');
+                    },
+                    success: function(r){
+                        alert("success");
+                        if(r.error != '') {
+                            alert(r.error);
+                            return false;
+                        }
+                        alert(actionType);
+                        if (actionType == 'follow')
+                        {
+                            $('.follow-user').each(function(){
+                                var follow = $(this).find('.follow');
+                                if(follow.attr('data-uid') == el.attr('data-uid')) {
+                                    $(follow).text("Unfollow");
+                                    $(follow).attr('data-action', 'unfollow');
+                                }
+                            });
+                        }
+                        else if (actionType == 'unfollow')
+                        {
+                            $('.follow-user').each(function(){
+                                var unfollow = $(this).find('.follow');
+                                if(unfollow.attr('data-uid') == el.attr('data-uid')) {
+                                    $(unfollow).text("Follow");
+                                    $(unfollow).attr('data-action', 'follow');
+                                }
+                            });
+                        }
+                    }
+                });
+            });
+        });
+
+        (function($){
+            $.fn.outside = function(ename, cb){
+                return this.each(function(){
+                    var $this = $(this),
+                            self = this;
+
+                    $(document).bind(ename, function tempo(e){
+                        if(e.target !== self && !$.contains(self, e.target)){
+                            cb.apply(self, [e]);
+                            if(!self.parentNode) $(document.body).unbind(ename, tempo);
+                        }
+                    });
+                });
+            };
+        }(jQuery));
+
+        $(document).ready(function(){
+            $("#shadow").css("height", $(document).height()).hide();
+            $(".lightSwitcher").click(function(){
+                $("#shadow").toggle();
+                if ($("#shadow").is(":hidden")) {
+                    $(this).html("Lights Off").removeClass("turnedOff");
+                } else {
+                    $('#sticky-navigation').css({ 'z-index': 50 });
+                    $(this).html("Lights On").addClass("turnedOff");
+                }
+            });
+            $('.lightSwitcher').outside('click', function() {
+                if (!$("#shadow").is(":hidden")) {
+                    $(this).html("Lights Off").removeClass("turnedOff");
+                    $("#shadow").toggle();
+                    $('#sticky-navigation').css({ 'z-index': 100000 });
+                }
+            });
+        });
+    </script>
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://localhost/documentarywire_wordpress/xmlrpc.php?rsd" />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://localhost/documentarywire_wordpress/wp-includes/wlwmanifest.xml" />
+    <meta name="generator" content="WordPress 3.8.3" />
+    <link rel='canonical' href='http://localhost/documentarywire_wordpress/' />
+    <link rel='shortlink' href='http://localhost/documentarywire_wordpress/?p=5' />
+
+    <meta property="og:site_name" content="DocumentaryWIRE" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://localhost/documentarywire_wordpress/" />
+    <meta property="og:title" content="DocumentaryWIRE | Just another WordPress site" />
+    <meta property="og:description" content="Just another WordPress site" />
+
+    <!-- Generated CSS BEGIN -->
+    <style type='text/css'>
+        body{background:#EEE url("http://localhost/documentarywire_wordpress/wp-content/themes/detube/images/bg-pattern.png") repeat center top fixed;}
+        .info-less{height:500px;}
+    </style>
+    <!-- Generated CSS END --><!-- Go to www.addthis.com/dashboard to customize your tools -->
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-53c9b5736b2c92a8"></script>
+
+</head>

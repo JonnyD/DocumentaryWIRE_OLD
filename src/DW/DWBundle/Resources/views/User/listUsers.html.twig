@@ -1,0 +1,11 @@
+{% for user in users %}
+
+    {% if user.avatar is not null %}
+    {{ user.displayName }}<br />
+    <img src="{{ asset('uploads/images/avatar/' ~ user.avatar) }}" />
+    <br />
+    <br />
+    <br />
+    <br />
+    {% endif %}
+{% endfor %}

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<!--[if IE 6]><html class="ie ie6 oldie" lang="en-US"><![endif]-->
+<!--[if IE 7]><html class="ie ie7 oldie" lang="en-US"><![endif]-->
+<!--[if IE 8]><html class="ie ie8 oldie" lang="en-US"><![endif]-->
+<!--[if IE 9]><html class="ie ie9" lang="en-US"><![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--><html lang="en-US"><!--<![endif]-->
+
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<!-- Meta Tags -->
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<!-- Title, Keywords and Description -->
+<title>{% block title %}{% endblock %}</title>
+<meta name="description" content="{% block description %}{% endblock %}" />
+<meta name="keywords" content="{% block keywords %}{% endblock %}">
+
+<link rel="shortcut icon" href="http://www.documentarywire.com/favicon.ico" />
+<link rel="alternate" type="application/rss+xml" title="DocumentaryWIRE Feed" href="{{url('documentary_wire.rss_feed')}}" />
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-4052849-2', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+{% block head %}
+
+{% endblock %}
+
+<!-- Stylesheets -->
+<link rel='stylesheet' id='open-sans-css'  href='//fonts.googleapis.com/css?family=Open+Sans%3A300italic%2C400italic%2C600italic%2C300%2C400%2C600&#038;subset=latin%2Clatin-ext&#038;ver=3.8.3' type='text/css' media='all' />
+<link rel='stylesheet' id='dp-fonts-css'  href='http://fonts.googleapis.com/css?family=Arimo%3A400%2C700%7CDroid+Serif%3A400%2C700%7COpen+Sans%3A600%2C700&#038;ver=3.8.3' type='text/css' media='all' />
+<link rel='stylesheet' id='dp-style-css'  href='{{ asset('css/combined.css?ver=3.1.11') }}' type='text/css' media='all' />
+<!-- JavaScript -->
+<script type='text/javascript' src='{{ asset('js/combined.js?ver=3.1.3') }}'></script>
+
+<!-- Generated CSS BEGIN -->
+<style type='text/css'>
+    .boxed-wrap #page{-webkit-box-shadow:none;box-shadow:none}
+    body{background:#333 url("{{ asset("css/images/bodybg.gif") }}") repeat-x top left;}
+</style>
+<style type="text/css">
+    .js .lazy-load {display: none;}
+</style>
+</head>
+
+<body class="home page page-id-5 page-template page-template-template-home-php logged-in admin-bar no-customize-support boxed-wrap">
+<div id="page">
+
+{{ include('DocumentaryWIREBundle::header.html.twig') }}
+
+{{ include('DocumentaryWIREBundle::navigation.html.twig') }}
+
+    {% block featured %}
+    {% endblock %}
+
+    {% block wall %}
+    {% endblock %}
+
+    {% block categoryCarousel %}
+    {% endblock %}
+
+<div id="main">
+    <div class="wrap cf">
+        {% block documentaryContent %}
+        <div id="content">
+            {% block content %}
+
+            {% endblock %}
+        </div><!-- end #content -->
+        {% endblock %}
+
+        <div id="sidebar" role="complementary" class="masonry">
+            {% block sidebar %}
+
+            {{ include('DocumentaryWIREBundle:User:listMembersWidget.html.twig') }}
+
+            {{ include('DocumentaryWIREBundle:Community:recentActivityWidget.html.twig') }}
+
+            {{ include('DocumentaryWIREBundle:Widget:categories.html.twig') }}
+
+            {{ include('DocumentaryWIREBundle:Widget:topScoringUsers.html.twig') }}
+
+            {{ include('DocumentaryWIREBundle:Widget:followUs.html.twig') }}
+
+            {{ include('DocumentaryWIREBundle:Widget:subscribe.html.twig') }}
+
+            {% endblock %}
+
+        </div><!--end #sidebar-->
+    </div>
+
+</div><!-- end #main -->
+
+    <footer id="footer">
+
+
+
+        <div id="footbar" class="footbar-c3" data-layout="c3">
+            <div class="wrap cf">
+                <div id="footbar-inner" class="masonry">
+
+                </div>
+            </div>
+        </div><!-- end #footbar -->
+        <div id="colophon" role="contentinfo">
+            <div class="wrap cf">
+                <div id="footer-branding">
+                    <a id="site-logo" rel="home" href="{{ url('documentary_wire_homepage') }}">
+                        <img src="{{ asset('css/images/logo.png') }}"
+                             alt="DocumentaryWIRE | Watch Free Documentaries Online"
+                             title="DocumentaryWIRE | Watch Free Documentaries Online"/>
+                    </a>
+                </div><!-- end #footer-branding -->
+
+                <div class="social-buttons">
+                    <div class="social-button">
+            <div class="fb-like" data-href="https://www.facebook.com/DocumentaryWIRE" data-width="25"
+                 data-height="25"
+                 data-layout="button" data-action="like" data-show-faces="false" data-share="false"></div>
+                        </div>
+
+                    <div class="social-button">
+     <!-- Place this tag where you want the +1 button to render. -->
+        <div class="g-plusone" data-annotation="none" data-width="20" data-href="http://www.documentarywire.com/"></div>
+                        </div>
+                </div>
+
+                <div id="footer-nav">
+                    <ul>
+
+                        <li>DocumentaryWIRE &copy; 2014</li>
+                       <!-- <li class="page_item page-item-7"><a href="http://localhost/documentarywire_wordpress/activity/">Activity</a></li>
+                        <li class="page_item page-item-8"><a href="http://localhost/documentarywire_wordpress/activity-2/">Activity</a></li>
+                        <li class="page_item page-item-5 current_page_item"><a href="http://localhost/documentarywire_wordpress/">Home</a></li>
+                        -->
+                    </ul>
+                </div><!-- end #footer-nav -->
+    </footer><!-- end #footer -->
+</div>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&appId=516432235033685&version=v2.0";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<!-- Please call pinit.js only once per page -->
+<script type="text/javascript" async src="//assets.pinterest.com/js/pinit.js"></script>
+
+
+<div id="shadow"></div>
+</body>
+</html>

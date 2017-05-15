@@ -1,0 +1,33 @@
+<li class="comment byuser comment-author-Ashay_Doshi even thread-even depth-1 cf" id="comment-{{ comment.id }}">
+    <div id="comment-div-{{ comment.id }}" class="comment-div cf">
+        <div class="comment-inner">
+            {{ include('DocumentaryWIREBundle:Comment:avatar.html.twig') }}
+            {{ include('DocumentaryWIREBundle:Comment:meta.html.twig') }}
+            <div class="comment-content">
+                <p>{{ comment.comment|nl2br }}</p>
+
+                <span class="comment-vote" data-cid="{{ comment.id }}">
+                    {% set vote = fetchVote(app.user, comment) %}
+                    <span class="points">{{ comment.points }}</span>
+                    {% if vote is not null %}
+                        <div class="voting_btn">
+                            <div class="{% if vote.voteType == "upvote" %}upvoted{% else %}upvote{% endif %}"
+                                 data-action="upvote" data-cid="{{ comment.id }}"></div>
+                        </div>
+                        <div class="voting_btn">
+                            <div class="{% if vote.voteType == "downvote" %}downvoted{% else %}downvote{% endif %}"
+                                 data-action="downvote" data-cid="{{ comment.id }}"></div>
+                        </div>
+                    {% else %}
+                        <div class="voting_btn">
+                            <div class="upvote" data-action="upvote" data-cid="{{ comment.id }}"></div>
+                        </div>
+                        <div class="voting_btn">
+                            <div class="downvote" data-action="downvote" data-cid="{{ comment.id }}"></div>
+                        </div>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    </div><!-- end .comment-div -->
+</li>

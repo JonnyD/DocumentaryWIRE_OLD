@@ -1,0 +1,66 @@
+{% set loggedInUser = app.user %}
+{% set hasLiked = false %}
+{% if loggedInUser is defined and loggedInUser is not null %}
+    {% set hasLiked = hasLiked(loggedInUser, documentary.slug) %}
+{% endif %}
+
+<div id="post-{{ documentary.id }}"
+     class="post-1 post type-post status-publish format-standard hentry category-uncategorized item cf item-video">
+
+    <div class="thumb"
+         data-popover="true"
+         data-html="true"
+         title="<strong>{{ documentary.title }}</strong><br />
+            {{ documentary.year }} - {{ documentary.length|hourMinute }} -
+            <a href='{{ url('documentary_wire_show_category', {'slug': documentary.category.slug }) }}'>
+            {{ documentary.category.name }}</a>">
+
+        <a class="clip-link" data-id="{{ documentary.id }}"
+           href="{{ url('documentary_wire_show_documentary', {'slug': documentary.slug }) }}">
+
+        <span class="clip">
+            <img src="{{ asset(documentary.thumbnail  | imagine_filter('cover160x200')) }}"
+                 alt="Watch {{ documentary.title }}" title="Watch {{ documentary.title }} Documentary"/>
+            <span class="vertical-align">
+            </span>
+        </span>
+
+            <span class="overlay"></span>
+        </a>
+    </div>
+    <div class="popover-content lazy-load">
+        {{ documentary.excerpt }}...
+
+        <div class="actions-wide">
+            <span class="dp-like-post like-documentary">
+                {% if hasLiked %}
+                    <a class="liked" href="#" data-action="unlike" data-did="{{ documentary.id }}">
+                        Remove from Favourites
+                    </a>
+                {% else %}
+                    <a class="like" href="#" data-action="like" data-did="{{ documentary.id }}">
+                        Add to Favourites
+                    </a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+    <div class="data">
+        <h2 class="entry-title">
+            <a href="{{ url('documentary_wire_show_documentary', {'slug': documentary.slug }) }}"
+               rel="bookmark" title="Watch {{ documentary.title }}">{{ documentary.title }}</a>
+        </h2>
+
+        <p class="stats">
+            <span class="views">
+                <i class="count">{{ documentary.views|views }}</i>
+            </span>
+            <span class="comments">
+                <i class="count">{{ documentary.commentCount }}</i>
+            </span>
+            <span class="dp-post-likes likes {% if hasLiked %}liked{% endif %}" data-did="{{ documentary.id }}">
+                <i class="count" data-did="{{ documentary.id }}">{{ documentary.likeCount }}</i>
+            </span>
+        </p>
+    </div>
+</div>

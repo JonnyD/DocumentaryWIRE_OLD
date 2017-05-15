@@ -1,0 +1,16 @@
+{% extends 'DocumentaryWIREBundle::base2.html.twig' %}
+
+{% block content %}
+    <div class="standard-form">
+        <div class="register-section" id="basic-details-section">
+            {{ form_start(form) }}
+                {{ form_row(form.url) }}
+                {{ form_row(form.submit) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block sidebar %}
+    {{ include('DocumentaryWIREBundle:User:listMembersWidget.html.twig') }}
+{% endblock %}

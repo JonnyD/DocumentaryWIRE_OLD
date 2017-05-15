@@ -1,0 +1,11 @@
+<div id="sidebar" role="complementary">
+
+    {{ render(controller('DocumentaryWIREBundle:User:listMembersWidget')) }}
+
+    {{ render(controller('DocumentaryWIREBundle:Community:recentActivityWidget')) }}
+
+    {{ render(controller('DocumentaryWIREBundle:Widget:listCategories')) }}
+
+    {{ include('DocumentaryWIREBundle:Widget:likebox.html.twig') }}
+
+</div><!--end #sidebar-->

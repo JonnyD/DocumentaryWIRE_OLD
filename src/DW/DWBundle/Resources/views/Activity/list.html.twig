@@ -1,0 +1,261 @@
+{% extends 'DocumentaryWIREBundle::base.html.twig' %}
+
+{% block body %}
+
+    <body class="directory activity logged-in  buddypress full-wrap no-js">
+
+    <div id="page">
+
+        {{ include('DocumentaryWIREBundle:Main:header.html.twig') }}
+
+        {{ include('DocumentaryWIREBundle:Main:navigation.html.twig') }}
+
+        {% block main %}
+            <div id="main">
+                <div class="wrap cf">
+
+                    {% block content %}
+                        <div id="content" role="main">
+                        <div class="post-0 bp_activity type-bp_activity status-publish hentry" id="post-0">
+                        <h1 class="page-title">Sitewide Activity</h1>
+
+                        <div class="page-content rich-content">
+
+                        <div id="buddypress">
+
+
+
+
+                        <form action="http://localhost/wordpress/activity/post/" method="post" id="whats-new-form" name="whats-new-form" role="complementary">
+
+
+                            <div id="whats-new-avatar">
+                                <a href="http://localhost/wordpress/members/admin/">
+                                    <img src="http://gravatar.com/avatar/ae5763288236e5256370b5627baae2ac?d=http://localhost/wordpress/wp-content/plugins/buddypress/bp-core/images/mystery-man.jpg&amp;s=50&amp;r=G" class="avatar user-1-avatar avatar-50 photo" width="50" height="50" alt="Profile picture of admin" />		</a>
+                            </div>
+
+                            <p class="activity-greeting">What's new, admin?</p>
+
+                            <div id="whats-new-content">
+                                <div id="whats-new-textarea">
+                                    <textarea name="whats-new" id="whats-new" cols="50" rows="10"></textarea>
+                                </div>
+
+                                <div id="whats-new-options">
+                                    <div id="whats-new-submit">
+                                        <input type="submit" name="aw-whats-new-submit" id="aw-whats-new-submit" value="Post Update" />
+                                    </div>
+
+
+                                    <div id="whats-new-post-in-box">
+
+                                        Post in:
+
+                                        <select id="whats-new-post-in" name="whats-new-post-in">
+                                            <option selected="selected" value="0">My Profile</option>
+
+
+                                        </select>
+                                    </div>
+                                    <input type="hidden" id="whats-new-post-object" name="whats-new-post-object" value="groups" />
+
+
+
+                                </div><!-- #whats-new-options -->
+                            </div><!-- #whats-new-content -->
+
+                            <input type="hidden" id="_wpnonce_post_update" name="_wpnonce_post_update" value="6d67df04cf" /><input type="hidden" name="_wp_http_referer" value="/wordpress/activity" />
+                        </form><!-- #whats-new-form -->
+
+
+
+                        <div class="item-list-tabs activity-type-tabs" role="navigation">
+                            <ul>
+
+                                <li class="selected" id="activity-all"><a href="http://localhost/wordpress/activity/" title="The public activity for everyone on this site.">All Members <span>1</span></a></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                <li id="activity-mentions"><a href="http://localhost/wordpress/members/admin/activity/mentions/" title="Activity that I have been mentioned in.">Mentions</a></li>
+
+
+
+                            </ul>
+                        </div><!-- .item-list-tabs -->
+
+                        <div class="item-list-tabs no-ajax" id="subnav" role="navigation">
+                            <ul>
+                                <li class="feed"><a href="http://localhost/wordpress/activity/feed/" title="RSS Feed">RSS</a></li>
+
+
+                                <li id="activity-filter-select" class="last">
+                                    <label for="activity-filter-by">Show:</label>
+                                    <select id="activity-filter-by">
+                                        <option value="-1">Everything</option>
+                                        <option value="activity_update">Updates</option>
+
+
+                                        <option value="new_blog_post">Posts</option>
+                                        <option value="new_blog_comment">Comments</option>
+
+
+
+
+                                        <option value="created_group">New Groups</option>
+                                        <option value="joined_group">Group Memberships</option>
+
+
+
+                                        <option value="friendship_accepted,friendship_created">Friendships</option>
+
+
+                                        <option value="new_member">New Members</option>
+
+
+                                    </select>
+                                </li>
+                            </ul>
+                        </div><!-- .item-list-tabs -->
+
+
+                        <div class="activity" role="main">
+
+
+
+                            <noscript>
+                                <div class="pagination">
+                                    <div class="pag-count">Viewing item 1 to 1 (of 1 items)</div>
+                                    <div class="pagination-links"></div>
+                                </div>
+                            </noscript>
+
+
+                            <ul id="activity-stream" class="activity-list item-list">
+
+
+
+
+
+                                <li class="activity activity_update activity-item" id="activity-1">
+                                    <div class="activity-avatar">
+                                        <a href="http://localhost/wordpress/members/admin/">
+
+                                            <img src="http://gravatar.com/avatar/ae5763288236e5256370b5627baae2ac?d=http://localhost/wordpress/wp-content/plugins/buddypress/bp-core/images/mystery-man.jpg&amp;s=50&amp;r=G" class="avatar user-1-avatar avatar-50 photo" width="50" height="50" alt="Profile picture of admin" />
+                                        </a>
+                                    </div>
+
+                                    <div class="activity-content">
+
+                                        <div class="activity-header">
+
+                                            <p><a href="http://localhost/wordpress/members/admin/" title="admin">admin</a> posted an update <a href="http://localhost/wordpress/activity/p/1/" class="view activity-time-since" title="View Discussion"><span class="time-since">39 minutes ago</span></a></p>
+
+                                        </div>
+
+
+                                        <div class="activity-inner">
+
+                                            <p>fadskjfksdf</p>
+
+                                        </div>
+
+
+
+                                        <div class="activity-meta">
+
+
+
+
+                                            <a href="?ac=1/#ac-form-1" class="button acomment-reply bp-primary-action" id="acomment-comment-1">Comment <span>0</span></a>
+
+
+
+
+                                            <a href="http://localhost/wordpress/activity/favorite/1/?_wpnonce=9b4b036cde" class="button fav bp-secondary-action" title="Mark as Favorite">Favorite</a>
+
+
+
+                                            <a href="http://localhost/wordpress/activity/delete/1?_wpnonce=44bdec5942" class="button item-button bp-secondary-action delete-activity confirm" rel="nofollow">Delete</a>
+
+
+                                        </div>
+
+                                    </div>
+
+
+
+                                    <div class="activity-comments">
+
+
+
+                                        <form action="http://localhost/wordpress/activity/reply/" method="post" id="ac-form-1" class="ac-form">
+                                            <div class="ac-reply-avatar"><img src="http://gravatar.com/avatar/ae5763288236e5256370b5627baae2ac?d=http://localhost/wordpress/wp-content/plugins/buddypress/bp-core/images/mystery-man.jpg&amp;s=50&amp;r=G" class="avatar user-1-avatar avatar-50 photo" width="50" height="50" alt="Profile picture of admin" /></div>
+                                            <div class="ac-reply-content">
+                                                <div class="ac-textarea">
+                                                    <textarea id="ac-input-1" class="ac-input" name="ac_input_1"></textarea>
+                                                </div>
+                                                <input type="submit" name="ac_form_submit" value="Post" /> &nbsp; <a href="#" class="ac-reply-cancel">Cancel</a>
+                                                <input type="hidden" name="comment_form_id" value="1" />
+                                            </div>
+
+
+                                            <input type="hidden" id="_wpnonce_new_activity_comment" name="_wpnonce_new_activity_comment" value="3adbcdd245" /><input type="hidden" name="_wp_http_referer" value="/wordpress/activity" />
+                                        </form>
+
+
+                                    </div>
+
+
+
+                                </li>
+
+
+
+
+
+                            </ul>
+
+
+
+
+                            <form action="" name="activity-loop-form" id="activity-loop-form" method="post">
+
+                                <input type="hidden" id="_wpnonce_activity_filter" name="_wpnonce_activity_filter" value="648b6315bf" /><input type="hidden" name="_wp_http_referer" value="/wordpress/activity" />
+                            </form>
+                        </div><!-- .activity -->
+
+
+
+
+
+                        </div>
+                        </div>
+                        </div><!--end .hentry-->
+                        </div><!-- end #content -->
+                    {% endblock %}
+
+                    {% block sidebar %}
+                        {{ include('DocumentaryWIREBundle:Main:sidebar.html.twig') }}
+                    {% endblock %}
+
+                </div>
+            </div><!-- end #main -->
+        {% endblock %}
+
+        {{ include('DocumentaryWIREBundle:Main:footer.html.twig') }}
+
+    </div><!-- end #page -->
+
+    </body>
+{% endblock %}

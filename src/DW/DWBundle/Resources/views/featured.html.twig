@@ -1,0 +1,73 @@
+<div class="home-featured wall">
+    <div class="wrap cf">
+        <div class="stage" data-ajaxload="">
+            <div class="carousel" data-autoscroll-interval="">
+                <div class="carousel-list">
+                    {% for documentary in featuredDocumentaries() %}
+                    <div class="item item-video" data-id="{{ documentary.id }}">
+                        <div class="thumb">
+                            <a class="clip-link" data-id="{{ documentary.id }}" title="Watch {{ documentary.title }}"
+                               href="{{ path('documentary_wire_show_documentary', {'slug': documentary.slug }) }}">
+                            <span class="clip">
+                                <img src="{{ asset(documentary.featuredImage) }}" alt="{{ documentary.title }}" />
+                                <span class="vertical-align"></span>
+                            </span>
+
+                                <span class="overlay"></span>
+                            </a>
+                        </div>
+                        <div class="caption">
+                            <h3 class="entry-title">
+                                <a href="{{ path('documentary_wire_show_documentary', {'slug': documentary.slug }) }}" rel="bookmark" title="Watch {{ documentary.title }}">
+                                    {{ documentary.title }}</a></h3>
+                        </div>
+                    </div><!-- end .item -->
+                    {% endfor %}
+                </div><!-- end .carousel-list -->
+            </div><!-- end .carousel -->
+        </div><!-- end .stage -->
+
+        <div class="nav">
+            <div class="carousel">
+                <div class="carousel-clip">
+                    <ul class="carousel-list">
+                        {% for documentary in featuredDocumentaries %}
+                        <li data-id="{{ documentary.id }}" class="item-video">
+                            <div class="inner">
+
+                                <div class="thumb">
+                                    <a class="clip-link" data-id="{{ documentary.id }}" title="Watch {{ documentary.title }}"
+                                       href="{{ path('documentary_wire_show_documentary', {'slug': documentary.slug }) }}">
+			<span class="clip">
+				<img src="{{ asset(documentary.featuredImage) }}"
+                     alt="Watch {{ documentary.title }} Documentary" /><span class="vertical-align"></span>
+			</span>
+
+                                        <span class="overlay"></span>
+                                    </a>
+                                </div>
+                                <div class="data">
+                                    <h3 class="entry-title">
+                                        <a href="{{ path('documentary_wire_show_documentary', {'slug': documentary.slug }) }}"
+                                           rel="bookmark"
+                                           title="Watch {{ documentary.title }}">{{ documentary.title }}</a>
+                                    </h3>
+
+                                    <p class="meta">
+                                        <span class="time"><!--{{ documentary.created|relativeTime }}--></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div><!-- end .carousel-clip -->
+
+                <a class="carousel-prev" href="#"></a>
+                <a class="carousel-next" href="#"></a>
+            </div><!-- end .carousel -->
+        </div><!-- end .nav -->
+
+
+    </div><!-- end .wrap -->
+</div><!-- end #wall -->

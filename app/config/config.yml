@@ -1,0 +1,204 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+
+framework:
+    #esi:             ~
+    translator:      ~
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+        #assets_version: SomeVersionScheme
+    default_locale:  "%locale%"
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    session:
+        # handler_id set to null will use default session handler from php.ini
+        handler_id:  ~
+    fragments:       ~
+    http_method_override: true
+
+# Twig Configuration
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+
+# Assetic Configuration
+assetic:
+    debug:          "%kernel.debug%"
+    use_controller: false
+    bundles:        [ ]
+    #java: /usr/bin/java
+    filters:
+        cssrewrite: ~
+        #closure:
+        #    jar: "%kernel.root_dir%/Resources/java/compiler.jar"
+        #yui_css:
+        #    jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   "%database_driver%"
+        host:     "%database_host%"
+        port:     "%database_port%"
+        dbname:   "%database_name%"
+        user:     "%database_user%"
+        password: "%database_password%"
+        charset:  UTF8
+        # if using pdo_sqlite as your database driver, add the path in parameters.yml
+        # e.g. database_path: "%kernel.root_dir%/data/data.db3"
+        # path:     "%database_path%"
+
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        auto_mapping: true
+
+stof_doctrine_extensions:
+    default_locale: en_US
+    orm:
+        default:
+            timestampable: true
+            sluggable: true
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport:  smtp
+    encryption: ssl
+    auth_mode:  login
+    host:       host.jonnydevine.com
+    username:   contact@documentarywire.com
+    password:   0j5yNzGBNKQce3K
+
+tbbc_cache:
+    manager: simple_cache
+    key_generator: simple_hash
+    metadata:
+        use_cache: true # Whether or not use metadata cache
+        cache_dir: %kernel.cache_dir%/tbbc_cache
+    cache:
+        documentaries:
+            type: apc
+            ttl: 86400 # 1 day
+        documentary:
+            type: apc
+        categories:
+            type: apc
+        category:
+            type: apc
+        category_documentaries:
+            type: apc
+        comments:
+            type: apc
+        year:
+            type: apc
+        year_documentaries:
+            type: apc
+        duration:
+            type: apc
+        duration_documentaries:
+            type: apc
+        likes:
+            type: apc
+        featured:
+            type: apc
+        recent:
+            type: apc
+        popular:
+            type: apc
+        liked:
+            type: apc
+        discussed:
+            type: apc
+        users:
+            type: apc
+        activity:
+            type: apc
+
+liuggio_stats_d_client:
+  connection:
+    host: localhost
+    port: 8125
+
+hwi_oauth:
+    # name of the firewall in which this bundle is active, this setting MUST be set
+    firewall_name: secured_area
+    connect:
+        account_connector: documentary_wire.oauth_user_provider
+    http_client:
+        verify_peer: false
+
+    # an optional setting to configure a query string parameter which can be used to redirect
+    # the user after authentication, e.g. /connect/facebook?_destination=/my/destination will
+    # redirect the user to /my/destination after facebook authenticates them.  If this is not
+    # set then the user will be redirected to the original resource that they requested, or
+    # the base address if no resource was requested.  This is similar to the behaviour of
+    # [target_path_parameter for form login](http://symfony.com/doc/2.0/cookbook/security/form_login.html).
+    # target_path_parameter: _destination
+
+    # an optional setting to use the HTTP REFERER header to be used in case no
+    # previous URL was stored in the session (i.e. no resource was requested).
+    # This is similar to the behaviour of
+    # [using the referring URL for form login](http://symfony.com/doc/2.0/cookbook/security/form_login.html#using-the-referring-url).
+    # use_referer: true
+
+    # here you will add one (or more) configurations for resource owners
+    # and other settings you want to adjust in this bundle, just checkout the list below!
+    resource_owners:
+        facebook:
+            type:                facebook
+            client_id:           516432235033685
+            client_secret:       c016792f6daf53b7d42859e1d55d422c
+            scope:         "email"
+            infos_url:     "https://graph.facebook.com/me?fields=username,name,email,picture.type(large)"
+            paths:
+                email:          email
+                profilepicture: picture.data.url
+
+# captcha
+gregwar_captcha: ~
+
+liip_imagine:
+    resolvers:
+       default:
+          web_path:
+            web_root: %kernel.root_dir%/../web
+            cache_prefix: media/cache
+
+    filter_sets:
+        cache: ~
+        avatar50:
+            quality: 75
+            filters:
+                thumbnail: { size: [50, 50], mode: inset }
+        avatar30:
+            quality: 75
+            filters:
+                thumbnail: { size: [30, 30], mode: inset }
+        avatar200:
+            quality: 90
+            filters:
+                thumbnail: { size: [200, 200], mode: inset }
+        cover160x200:
+            quality: 100
+            filters:
+                thumbnail: { size: [160, 200], mode: inset }
+        cover50x70:
+            quality: 75
+            filters:
+                thumbnail: { size: [50, 70], mode: inset }
+
+eko_feed:
+    feeds:
+        documentary:
+            title:       'DocumentaryWIRE'
+            description: 'Watch Free Documentaries Online'
+            link:        'http://www.documentarywire.com'
+            encoding:    'utf-8'
+            author:      'DocumentaryWIRE' # Only required for Atom feeds

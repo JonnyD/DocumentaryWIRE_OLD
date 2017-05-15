@@ -1,0 +1,45 @@
+<header id="header">
+	<div class="wrap cf">
+		<div id="branding" class="image-branding" role="banner">
+			<h1 id="site-title">
+				<a rel="home" href="{{ path('documentary_wire_homepage') }}">DocumentaryWIRE</a>
+			</h1>
+					
+			<a id="site-logo" rel="home" href="{{ path('documentary_wire_homepage') }}">
+				<img src="{{ asset('css/images/logo.png') }}" alt="DocumentaryWIRE"/>
+			</a>
+					
+			<h2 id="site-description" class="hidden">Just another WordPress site</h2>
+		</div><!-- end #branding -->
+
+        <div id="header-actions" class="cf">
+            <a class="btn btn-red" href="{{ path('documentary_wire_add_documentary') }}">+ Add Documentary</a>
+            <!--<div id="account-nav" class="user-nav">
+                <a class="dropdown-handle" href="http://localhost/wordpress/?author=1">
+                    <img src="http://gravatar.com/avatar/ae5763288236e5256370b5627baae2ac?d=http://localhost/wordpress/wp-content/plugins/buddypress/bp-core/images/mystery-man.jpg&amp;s=32&amp;r=G" class="avatar user-1-avatar avatar-32 photo" width="32" height="32" alt="Avatar of admin" />
+                <span class="display-name btn">
+                    <span class="arrow-down">admin</span>
+                    <i class="mini-arrow-down"></i>
+                </span>
+                </a>
+
+                <div class="dropdown-content">
+                    <ul class="dropdown-content-inner">
+                        <li><a class="profile-link" href="http://localhost/wordpress/?author=1">Profile</a></li>
+                        <li><a class="account-link" href="http://localhost/wordpress/members-2/admin/profile/edit/">Account</a></li>
+                        <li><a class="logout-link" href="http://localhost/wordpress/wp-login.php?action=logout&#038;redirect_to=http%3A%2F%2Flocalhost%2Fwordpress%2F&#038;_wpnonce=2de8c24a3c">Log out</a></li>
+                    </ul>
+                </div>
+            </div> end #account-nav -->
+		</div><!-- end #header-actions -->
+		
+		<div id="header-search">
+			<div class="searchform-div">
+				<form method="get" class="searchform" action="http://localhost/wordpress/">
+					<div class="search-text-div"><input type="text" name="s" class="search-text" value="" placeholder="Search over 2000 documentaries..." /></div>
+					<div class="search-submit-div btn"><input type="submit" class="search-submit" value="Search" /></div>
+				</form><!--end #searchform-->
+			</div>	
+		</div><!-- end #header-search -->
+	</div>
+</header><!-- end #header-->

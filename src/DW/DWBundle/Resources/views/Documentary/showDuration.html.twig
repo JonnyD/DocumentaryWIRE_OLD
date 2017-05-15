@@ -1,0 +1,37 @@
+{% extends 'DocumentaryWIREBundle:Documentary:base.html.twig' %}
+
+{% block content %}
+    <div class="loop-header">
+        <h1 class="loop-title">
+            <span class="prefix">Duration:</span>
+            <em>
+                {% if length == "short" %}
+                    Short (~20min)
+                {% elseif length == "mid" %}
+                    Mid (21-40min)
+                {% elseif length == "long" %}
+                    Long (41+min)
+                {% elseif length == "unknown" %}
+                    Unknown
+                {% endif %}
+            </em>
+        </h1>
+        <div class="loop-desc"></div>
+    </div><!-- end .loop-header -->
+
+    {{ include('DocumentaryWIREBundle:Documentary:loop-actions.html.twig') }}
+
+    <div class="loop-content switchable-view grid-large" data-view="grid-large" data-ajaxload=1>
+
+        <div class="nag cf">
+            {% for documentaryKey in documentaries %}
+                {% set slug = documentaryKey.slug %}
+                {% set documentary = fetchDocumentary(slug) %}
+                {{ include('DocumentaryWIREBundle:Documentary:post.html.twig') }}
+            {% endfor %}
+        </div><!-- end .nag cf -->
+
+        {{ knp_pagination_render(documentaries, 'DocumentaryWIREBundle:Pagination:sliding.html.twig') }}
+
+    </div><!-- end .loop-content -->
+{% endblock %}

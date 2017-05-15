@@ -1,0 +1,13 @@
+<span class="popover-container">
+    <a href="{{ path('documentary_wire_show_user', {'username': user.username }) }}"
+       data-popover="true" data-placement="top">{{ user.username }}</a>
+    <div class="popover-content" style="display:none">
+        <img src="{{ asset(user.avatar) }}" alt="{{ user.username }}"
+             width="50" height="50" style="float:left; margin: 0 10px 10px 0"/>
+        <strong>
+            {{ user.username }}
+        </strong> <br />
+        {{ include('DocumentaryWIREBundle:User:followUser.html.twig',
+        { 'user': user }) }}
+    </div>
+</span>

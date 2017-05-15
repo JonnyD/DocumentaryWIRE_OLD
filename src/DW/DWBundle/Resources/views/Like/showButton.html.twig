@@ -1,0 +1,7 @@
+<span class="like-documentary">
+{% if like %}
+<a class="liked" data-lid="{{ like.id }}" data-did="{{ like.documentary.id }}">Liked</a>
+{% else %}
+<a class="like" data-did="{{ documentary.id }}">Like</a>
+{% endif %}
+</span>

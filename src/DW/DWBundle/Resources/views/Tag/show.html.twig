@@ -1,0 +1,30 @@
+{% extends 'DocumentaryWIREBundle:Documentary:base.html.twig' %}
+
+{% block title %}{{ tag.name }} - Watch Free Documentaries Online{% endblock %}
+{% block description %}Watch documentaries about {{ tag.name }}{% endblock %}
+
+{% block content %}
+    <div class="loop-header">
+        <h1 class="loop-title">
+            <span class="prefix">Tag:</span>
+            <em>{{ tag.name }} Documentaries</em>
+        </h1>
+        <div class="loop-desc">
+        </div>
+        {{ tag.description }}
+    </div><!-- end .loop-header -->
+
+    {{ include('DocumentaryWIREBundle:Documentary:loop-actions.html.twig') }}
+
+    <div class="loop-content switchable-view grid-large" data-view="grid-large" data-ajaxload=1>
+
+        <div class="nag cf">
+            {% for documentary in documentaries %}
+                {{ include('DocumentaryWIREBundle:Documentary:post.html.twig') }}
+            {% endfor %}
+        </div><!-- end .nag cf -->
+
+        {{ knp_pagination_render(documentaries, 'DocumentaryWIREBundle:Pagination:sliding.html.twig') }}
+
+    </div><!-- end .loop-content -->
+{% endblock %}

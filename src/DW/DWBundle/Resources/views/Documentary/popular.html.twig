@@ -1,0 +1,28 @@
+<div class="section-box">
+
+    <div class="section-header">
+        <h2 class="section-title">
+            <span class="name">Popular Documentaries</span>
+        </h2>
+
+        <a class="more-link"
+           href="{{ url('documentary_wire_browse', {'orderBy': 'views'}) }}"
+           title="Watch Popular Documentaries">
+            <span>
+                More <i class="mini-arrow-right"></i>
+            </span>
+        </a>
+    </div>
+
+    <div class="section-content grid-mini">
+        <div class="nag cf">
+            {% for documentaryKey in documentaries %}
+                {% set slug = documentaryKey.slug %}
+                {% set documentary = fetchDocumentary(slug) %}
+                {{ include('DocumentaryWIREBundle:Documentary:post.html.twig') }}
+            {% endfor %}
+        </div>
+
+    </div><!-- end .section-content -->
+
+</div><!-- end .section-box -->

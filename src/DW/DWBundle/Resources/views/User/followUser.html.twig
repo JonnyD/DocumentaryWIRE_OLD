@@ -1,0 +1,18 @@
+<span class="follow-user">
+    {% set loggedInUser = app.user %}
+    {% if loggedInUser != null %}
+        {% if user.username != loggedInUser.username %}
+            {% if user in loggedInUser.followingUsersOnly %}
+                <a class="follow btn btn-default" data-action="unfollow" data-uid="{{ user.id }}"
+                   href="javascript:void(0);">Unfollow</a>
+            {% else %}
+                <a class="follow btn btn-default"
+                   data-action="follow"
+                   data-uid="{{ user.id }}"
+                   href="javascript:void(0);">Follow</a>
+            {% endif %}
+        {% endif %}
+    {% else %}
+        <a class="follow" data-uid="{{ user.id }}">Follow</a>
+    {% endif %}
+</span>

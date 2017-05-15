@@ -1,0 +1,14 @@
+{% extends 'DocumentaryWIREBundle::base2.html.twig' %}
+
+ {% block categoryCarousel %}
+ {% endblock %}
+
+{% block content %}
+{% endblock %}
+
+{% block sidebar %}
+    {{ include('DocumentaryWIREBundle:Widget:categories.html.twig') }}
+    {{ include('DocumentaryWIREBundle:Documentary:listYears.html.twig') }}
+    {{ include('DocumentaryWIREBundle:Documentary:listDuration.html.twig') }}
+    {{ include('DocumentaryWIREBundle:Widget:subscribe.html.twig') }}
+{% endblock %}

@@ -1,0 +1,332 @@
+documentary_wire_homepage:
+    pattern:  /
+    defaults: { _controller: DocumentaryWIREBundle:Home:index }
+
+documentary_wire_home:
+    pattern: /home/
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: documentary_wire_homepage
+        permanent: true # this is for 301
+
+documentary_wire_index:
+    pattern: /index.php/
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: documentary_wire_homepage
+        permanent: true # this is for 301
+
+documentary_wire_index:
+    pattern: /index.html/
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: documentary_wire_homepage
+        permanent: true # this is for 301
+
+documentary_wire.show_group:
+    pattern: /groups/{group}/
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: documentary_wire_homepage
+        permanent: true # this is for 301
+
+documentary_wire.captcha_securimage:
+    pattern: /wp-content/plugins/si-captcha-for-wordpress/captcha/securimage_show.php
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: documentary_wire_homepage
+        permanent: true # this is for 301
+
+documentary_wire.sitemap:
+    pattern:  /sitemap.xml
+    defaults: { _controller: DocumentaryWIREBundle:Site:sitemap }
+
+documentary_wire.sitemap_documentary:
+    pattern:  /sitemap-documentary.xml
+    defaults: { _controller: DocumentaryWIREBundle:Site:sitemapDocumentary }
+
+documentary_wire.sitemap_category:
+    pattern:  /sitemap-category.xml
+    defaults: { _controller: DocumentaryWIREBundle:Site:sitemapCategory }
+
+documentary_wire.sitemap_page:
+    pattern:  /sitemap-page.xml
+    defaults: { _controller: DocumentaryWIREBundle:Site:sitemapPage }
+
+documentary_wire.search:
+    pattern:  /search/
+    defaults: { _controller: DocumentaryWIREBundle:Search:search }
+
+documentary_wire_list_documentaries:
+    pattern: /documentary/
+    defaults: { _controller: DocumentaryWIREBundle:Documentary:list }
+
+documentary_wire_add_documentary:
+    pattern: /documentary/add/
+    defaults: { _controller: DocumentaryWIREBundle:Documentary:add }
+    
+documentary_wire_add_link:
+    pattern: /link/add/
+    defaults: { _controller: DocumentaryWIREBundle:Link:add }
+
+documentary_wire.show_year:
+    pattern: /released/{year}/
+    defaults: { _controller: DocumentaryWIREBundle:Documentary:showYear }
+
+documentary_wire.show_duration:
+    pattern: /length/{length}/
+    defaults: { _controller: DocumentaryWIREBundle:Documentary:showDuration }
+
+documentary_wire.show_tag:
+    pattern: /tag/{slug}/
+    defaults: { _controller: DocumentaryWIREBundle:Tag:showTag }
+
+documentary_wire_browse:
+    pattern: /browse/
+    defaults: { _controller: DocumentaryWIREBundle:Documentary:browse, page: 1 }
+
+documentary_wire_browse_first:
+    pattern: /browse/page/1/
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: documentary_wire_browse
+        permanent: true # this is for 301
+
+documentary_wire_browse_page:
+    pattern: /browse/page/{page}/
+    defaults: { _controller: DocumentaryWIREBundle:Documentary:browse, page: page }
+
+documentary_wire_all:
+    pattern: /all/
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: documentary_wire_browse
+        permanent: true # this is for 301
+
+documentary_wire_all_page:
+    pattern: /all/page/{page}/
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: documentary_wire_browse_page
+        permanent: true # this is for 301
+
+documentary_wire.list:
+    pattern: /watch-online/
+    defaults: { _controller: DocumentaryWIREBundle:Documentary:list }
+    
+documentary_wire_list_categories:
+    pattern: /category/
+    defaults: { _controller: DocumentaryWIREBundle:Category:list }
+
+documentary_wire_show_category:
+    pattern: /category/{slug}/
+    defaults: { _controller: DocumentaryWIREBundle:Category:show, page: 1 }
+
+documentary_wire_show_category_first:
+    pattern: /category/{slug}/page/1/
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: documentary_wire_show_category
+        permanent: true # this is for 301
+
+documentary_wire_show_category_page:
+    pattern: /category/{slug}/page/{page}/
+    defaults: { _controller: DocumentaryWIREBundle:Category:show }
+    
+documentary_wire_like_documentary:
+    pattern: /ajax/like/documentary
+    defaults: { _controller: DocumentaryWIREBundle:Like:like }
+    requirements:
+        _method: POST
+        
+documentary_wire_vote_comment:
+    pattern: /ajax/comment/vote
+    defaults: { _controller: DocumentaryWIREBundle:Comment:vote }
+
+documentary_wire.list_users:
+    pattern: /admin/users/
+    defaults: { _controller: DocumentaryWIREBundle:User:listUsers }
+
+documentary_wire.forgot_password:
+    pattern: /forgot-password/
+    defaults: { _controller: DocumentaryWIREBundle:User:forgotPassword }
+
+documentary_wire.activate:
+    pattern: /activate/
+    defaults: { _controller: DocumentaryWIREBundle:User:activateAccount }
+
+documentary_wire.send_activation_email:
+    pattern: /send-activation-email/
+    defaults: { _controller: DocumentaryWIREBundle:User:sendActivationEmail }
+
+documentary_wire.activation_required:
+    pattern: /activation-required
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template: 'DocumentaryWIREBundle:User:activationRequired.html.twig'
+
+documentary_wire.change_password:
+    pattern: /user/change-password/
+    defaults: { _controller: DocumentaryWIREBundle:User:changePassword }
+
+documentary_wire.change_username:
+    pattern: /user/change-username/
+    defaults: { _controller: DocumentaryWIREBundle:User:changeUsername }
+
+documentary_wire.change_email:
+    pattern: /user/change-email/
+    defaults: { _controller: DocumentaryWIREBundle:User:changeEmail }
+
+documentary_wire.reset_password:
+    pattern: /reset-password/
+    defaults: { _controller: DocumentaryWIREBundle:User:resetPassword }
+
+documentary_wire.upload_avatar:
+    pattern: /user/upload-avatar/
+    defaults: { _controller: DocumentaryWIREBundle:User:uploadAvatar }
+
+documentary_wire.edit_profile:
+    pattern: /user/edit-profile/
+    defaults: { _controller: DocumentaryWIREBundle:User:editProfile }
+
+documentary_wire_show_user:
+    pattern: /user/{username}/
+    defaults: { _controller: DocumentaryWIREBundle:User:showActivity }
+
+documentary_wire_show_member:
+    pattern: /members/{username}/
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: documentary_wire_show_user
+        permanent: true # this is for 301
+
+documentary_wire_show_author:
+    pattern: /author/{username}/
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: documentary_wire_show_user
+        permanent: true # this is for 301
+
+documentary_wire_show_member_activity:
+    pattern: /members/{username}/activity/{id}
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: documentary_wire_show_user
+        permanent: true # this is for 301
+
+documentary_wire_show_user_favourites:
+    pattern: /user/{username}/favorites
+    defaults: { _controller: DocumentaryWIREBundle:User:showLiked }
+
+documentary_wire_show_user_followers:
+    pattern: /user/{username}/followers
+    defaults: { _controller: DocumentaryWIREBundle:User:showFollowers }
+
+documentary_wire_show_user_following:
+    pattern: /user/{username}/following
+    defaults: { _controller: DocumentaryWIREBundle:User:showFollowing }
+
+documentary_wire_ajax_follow_user:
+    pattern: /ajax/follow/user
+    defaults: { _controller: DocumentaryWIREBundle:Follow:ajaxFollow }
+
+documentary_wire_follow_user:
+    pattern: /follow/{username}
+    defaults: { _controller: DocumentaryWIREBundle:Follow:follow }
+
+documentary_wire_sandbox:
+    pattern: /sandbox
+    defaults: { _controller: DocumentaryWIREBundle:Sandbox:sandbox }
+
+documentary_wire.show_community:
+    pattern: /community/
+    defaults: { _controller: DocumentaryWIREBundle:Community:show }
+
+documentary_wire.show_activity:
+    pattern: /activity/
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: documentary_wire.show_community
+        permanent: true # this is for 301
+
+documentary_wire.admin_show_dashboard:
+    pattern: /admin/dashboard
+    defaults: { _controller: DocumentaryWIREBundle:Admin:showDashboard }
+
+documentary_wire.admin_create_documentary:
+    pattern: /admin/documentary/create
+    defaults: { _controller: DocumentaryWIREBundle:Admin:createDocumentary }
+
+documentary_wire.admin_show_documentary:
+    pattern: /admin/documentary/show/{slug}/
+    defaults: { _controller: DocumentaryWIREBundle:Admin:showDocumentary }
+
+documentary_wire.migrate_from_wordpress:
+    pattern: /admin/migrate
+    defaults: { _controller: DocumentaryWIREBundle:Admin:migrateFromWordpress }
+
+documentary_wire.register:
+    pattern: /register/
+    defaults: { _controller: DocumentaryWIREBundle:Security:Register }
+
+documentary_wire.wp_register:
+    pattern: /register-2/
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: documentary_wire.register
+        permanent: true # this is for 301
+
+documentary_wire.rss_feed:
+    pattern: /feed/
+    defaults: { _controller: DocumentaryWIREBundle:Feed:siteFeed }
+
+documentary_wire.category_rss_feed:
+    pattern: /category/{slug}/feed/
+    defaults: { _controller: DocumentaryWIREBundle:Feed:categoryFeed }
+
+documentary_wire.contact:
+    pattern: /contact/
+    defaults: { _controller: DocumentaryWIREBundle:Site:contact }
+
+documentary_wire.show_wp_login:
+    pattern: /wp-login.php/
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: login
+        permanent: true # this is for 301
+
+documentary_wire_show_documentary:
+    pattern: /{slug}/
+    defaults: { _controller: DocumentaryWIREBundle:Documentary:show, page: 1 }
+
+documentary_wire.show_documentary_wo_slash:
+    pattern: /{slug}
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: documentary_wire_show_documentary
+        permanent: true # this is for 301
+
+documentary_wire.show_documentary_trackback:
+    pattern: /{slug}/trackback
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: documentary_wire_show_documentary
+        permanent: true # this is for 301
+
+documentary_wire_show_documentary_first:
+    pattern: /{slug}/comment-page-1/
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: documentary_wire_show_documentary
+        permanent: true # this is for 301
+
+documentary_wire_show_documentary_page:
+    pattern: /{slug}/comment-page-{page}/
+    defaults: { _controller: DocumentaryWIREBundle:Documentary:show, page: page }
+
+documentary_wire_show_documentary_feed:
+    pattern: /{slug}/feed/
+    defaults:
+        _controller: FrameworkBundle:Redirect:redirect
+        route: documentary_wire_show_documentary
+        permanent: true # this is for 301

@@ -1,0 +1,33 @@
+{% extends 'DocumentaryWIREBundle::base2.html.twig' %}
+
+{% block title %}Login | DocumentaryWIRE{% endblock %}
+{% block description %}Login to your account.{% endblock %}
+
+{% block content %}
+
+{% if error %}
+    <div>{{ error.message }}</div>
+{% endif %}
+
+    <form action="{{ path('login_check') }}" method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="_username" value="{{ last_username }}" />
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="_password" />
+
+        <button type="submit">login</button>
+    </form>
+
+    <p>
+        <a class="lost-password" href="{{ path('documentary_wire.forgot_password') }}">Forgot password?</a>
+    </p>
+
+    <a href="{{ path('hwi_oauth_connect_facebook') }}">
+        <div class="facebook_sign_in facebook_sign_in_button"></div>
+    </a>
+{% endblock %}
+
+{% block sidebar %}
+    {{ include('DocumentaryWIREBundle:User:listMembersWidget.html.twig') }}
+{% endblock %}

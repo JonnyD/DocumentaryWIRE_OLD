@@ -1,0 +1,29 @@
+{% extends 'DocumentaryWIREBundle::base.html.twig' %}
+
+{% block content %}
+
+    <div class="loop-header">
+        <h1 class="loop-title">
+            <a href="{{ path('documentary_wire_show_user', {'username': username }) }}">{{ user.username }}</a> / Liked Documentaries
+        </h1>
+    </div>
+
+
+    <div class="loop-actions cf">
+        <div class="sort">
+            <span class="prefix">Sort:</span>
+            <span class="orderby">
+                <a href="/author/huhahoo?filter_type=user_liked&orderby=date" title="Sort by Date" class="date current"><i>Date</i></a> <span class="sep">|</span> <a href="/author/huhahoo?filter_type=user_liked&orderby=title" title="Sort by Title" class="title"><i>Title</i></a> <span class="sep">|</span> <a href="/author/huhahoo?filter_type=user_liked&orderby=views" title="Sort by Views" class="views"><i>Views</i></a> <span class="sep">|</span> <a href="/author/huhahoo?filter_type=user_liked&orderby=likes" title="Sort by Likes" class="likes"><i>Likes</i></a> <span class="sep">|</span> <a href="/author/huhahoo?filter_type=user_liked&orderby=comments" title="Sort by Comments" class="comments"><i>Comments</i></a> </span><!-- end .orderby --><select class="orderby-select"><option value="/author/huhahoo?filter_type=user_liked&orderby=date" selected='selected'>Date</option><option value="/author/huhahoo?filter_type=user_liked&orderby=title">Title</option><option value="/author/huhahoo?filter_type=user_liked&orderby=views">Views</option><option value="/author/huhahoo?filter_type=user_liked&orderby=likes">Likes</option><option value="/author/huhahoo?filter_type=user_liked&orderby=comments">Comments</option></select><span class="order"><a class="desc" href="/author/huhahoo?filter_type=user_liked&order=asc" title="Sort Descending">Sort Descending</a></span><!-- end .order --></div><!-- end .sort --><div class="view"><span class="prefix">View:</span><a href="#" title="Grid View with Small Thumbnail" data-type="grid-small" class="grid-small-link current"><i></i></a><a href="#" title="Grid View with Mini Thumbnail" data-type="grid-mini" class="grid-mini-link"><i></i></a><a href="#" title="Grid View with Medium Thumbnail" data-type="grid-medium" class="grid-medium-link"><i></i></a><a href="#" title="List View with Small Thumbnail" data-type="list-small" class="list-small-link"><i></i></a><a href="#" title="List View with Medium Thumbnail" data-type="list-medium" class="list-medium-link"><i></i></a><a href="#" title="List View with Large Thumbnail" data-type="list-large" class="list-large-link"><i></i></a>
+        </div><!-- end .view -->
+    </div><!-- end .loop-actions -->
+
+    <div class="loop-content switchable-view grid-small" data-view="grid-small">
+        <div class="nag cf">
+            {% for like in likes %}
+                {% set documentary = like.documentary %}
+                {{ include('DocumentaryWIREBundle:Documentary:post.html.twig') }}
+            {% endfor %}
+        </div>
+    </div><!-- end .loop-content -->
+
+{% endblock %}

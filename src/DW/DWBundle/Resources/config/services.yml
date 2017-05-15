@@ -1,0 +1,432 @@
+parameters:
+    category_manager.class: DW\DWBundle\Manager\CategoryManager
+    comment_manager.class: DW\DWBundle\Manager\CommentManager
+    user_manager.class: DW\DWBundle\Manager\UserManager
+    documentary_manager.class: DW\DWBundle\Manager\DocumentaryManager
+    base_manager.class: DW\DWBundle\Manager\BaseManager
+    paginate_manager.class: DW\DWBundle\Manager\PaginateManager
+    like_manager.class: DW\DWBundle\Manager\LikeManager
+    activity_manager.class: DW\DWBundle\Manager\ActivityManager
+    follow_manager.class: DW\DWBundle\Manager\FollowManager
+    tag_manager.class: DW\DWBundle\Manager\TagManager
+    role_manager.class: DW\DWBundle\Manager\RoleManager
+    site_manager.class: DW\DWBundle\Manager\SiteManager
+    vote_manager.class: DW\DWBundle\Manager\VoteManager
+
+    user_provider.class: DW\DWBundle\Provider\UserProvider
+
+    custom_repository.class: DW\DWBundle\Repository\Doctrine\ORM\CustomRepository
+    documentary_repository.class: DW\DWBundle\Repository\Doctrine\ORM\DocumentaryRepository
+    documentary_repository.factory_argument: 'DocumentaryWIREBundle:Documentary'
+    category_repository.class: DW\DWBundle\Repository\Doctrine\ORM\CategoryRepository
+    category_repository.factory_argument: 'DocumentaryWIREBundle:Category'
+    comment_repository.class: DW\DWBundle\Repository\Doctrine\ORM\CommentRepository
+    comment_repository.factory_argument: 'DocumentaryWIREBundle:Comment'
+    user_repository.class: DW\DWBundle\Repository\Doctrine\ORM\UserRepository
+    user_repository.factory_argument: 'DocumentaryWIREBundle:User'
+    like_repository.class: DW\DWBundle\Repository\Doctrine\ORM\LikeRepository
+    like_repository.factory_argument: 'DocumentaryWIREBundle:Like'
+    activity_repository.class: DW\DWBundle\Repository\Doctrine\ORM\ActivityRepository
+    activity_repository.factory_argument: 'DocumentaryWIREBundle:Activity'
+    follow_repository.class: DW\DWBundle\Repository\Doctrine\ORM\FollowRepository
+    follow_repository.factory_argument: 'DocumentaryWIREBundle:Follow'
+    tag_repository.class: DW\DWBundle\Repository\Doctrine\ORM\TagRepository
+    tag_repository.factory_argument: 'DocumentaryWIREBundle:Tag'
+    role_repository.class: DW\DWBundle\Repository\Doctrine\ORM\RoleRepository
+    role_repository.factory_argument: 'DocumentaryWIREBundle:Role'
+    vote_repository.class: DW\DWBundle\Repository\Doctrine\ORM\VoteRepository
+    vote_repository.factory_argument: 'DocumentaryWIREBundle:Vote'
+
+    cached_custom_repository.class: DW\DWBundle\Repository\Cached\CustomRepository
+    cached_documentary_repository.class: DW\DWBundle\Repository\Cached\DocumentaryRepository
+    cached_user_repository.class: DW\DWBundle\Repository\Cached\UserRepository
+    cached_category_repository.class: DW\DWBundle\Repository\Cached\CategoryRepository
+    cached_comment_repository.class: DW\DWBundle\Repository\Cached\CommentRepository
+    cached_like_repository.class: DW\DWBundle\Repository\Cached\LikeRepository
+    cached_activity_repository.class: DW\DWBundle\Repository\Cached\ActivityRepository
+    cached_vote_repository.class: DW\DWBundle\Repository\Cached\VoteRepository
+
+    cache_helper.class: DW\DWBundle\Helper\CacheHelper
+    user_helper.class: DW\DWBundle\Helper\UserHelper
+    image_helper.class: DW\DWBundle\Helper\ImageHelper
+
+    documentary_wire.security_listener.class: DW\DWBundle\EventListener\SecurityListener
+    documentary_wire.add_activity_listener.class: DW\DWBundle\EventListener\AddActivityListener
+    documentary_wire.invalidate_cache_listener.class: DW\DWBundle\EventListener\InvalidateCacheListener
+    documentary_wire.send_activation_email_listener.class: DW\DWBundle\EventListener\SendActivationEmailListener
+
+services:
+    documentary_wire.documentary_manager:
+        class: %documentary_manager.class%
+        arguments:
+          - @documentary_wire.cached_documentary_repository
+          - @event_dispatcher
+
+    documentary_wire.comment_manager:
+        class: %comment_manager.class%
+        arguments:
+          - @documentary_wire.cached_comment_repository
+          - @event_dispatcher
+
+    documentary_wire.user_manager:
+        class: %user_manager.class%
+        arguments:
+          - @documentary_wire.cached_user_repository
+          - @event_dispatcher
+
+    documentary_wire.activity_manager:
+        class: %activity_manager.class%
+        arguments:
+          - @documentary_wire.cached_activity_repository
+          - @event_dispatcher
+
+    documentary_wire.documentary_repository:
+        class: %documentary_repository.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments:
+          - %documentary_repository.factory_argument%
+
+    documentary_wire.category_manager:
+        class: %category_manager.class%
+        arguments:
+          - @documentary_wire.cached_category_repository
+
+    documentary_wire.role_manager:
+        class: %role_manager.class%
+        arguments:
+          - @documentary_wire.role_repository
+
+    documentary_wire.paginate_manager:
+        class: %paginate_manager.class%
+        arguments:
+          - @knp_paginator
+
+    documentary_wire.like_manager:
+        class: %like_manager.class%
+        arguments:
+          - @documentary_wire.cached_like_repository
+          - @event_dispatcher
+
+    documentary_wire.follow_manager:
+        class: %follow_manager.class%
+        arguments:
+          - @documentary_wire.follow_repository
+
+    documentary_wire.tag_manager:
+        class: %tag_manager.class%
+        arguments:
+          - @documentary_wire.tag_repository
+
+    documentary_wire.site_manager:
+        class: %site_manager.class%
+
+    documentary_wire.vote_manager:
+        class: %vote_manager.class%
+        arguments:
+          - @documentary_wire.cached_vote_repository
+          - @event_dispatcher
+
+    documentary_wire.category_repository:
+        class: %category_repository.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments:
+          - %category_repository.factory_argument%
+
+    documentary_wire.comment_repository:
+        class: %comment_repository.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments:
+          - %comment_repository.factory_argument%
+
+    documentary_wire.user_repository:
+        class: %user_repository.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments:
+          - %user_repository.factory_argument%
+
+    documentary_wire.like_repository:
+        class: %like_repository.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments:
+          - %like_repository.factory_argument%
+
+    documentary_wire.activity_repository:
+        class: %activity_repository.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments:
+          - %activity_repository.factory_argument%
+
+    documentary_wire.follow_repository:
+        class: %follow_repository.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments:
+          - %follow_repository.factory_argument%
+
+    documentary_wire.tag_repository:
+        class: %tag_repository.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments:
+          - %tag_repository.factory_argument%
+
+    documentary_wire.role_repository:
+        class: %role_repository.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments:
+          - %role_repository.factory_argument%
+
+    documentary_wire.vote_repository:
+        class: %vote_repository.class%
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        arguments:
+          - %vote_repository.factory_argument%
+
+    documentary_wire.twig.views_extension:
+        class: DW\DWBundle\Twig\ViewsExtension
+        tags:
+            - { name: twig.extension }
+
+    documentary_wire.twig.relative_time_extension:
+        class: DW\DWBundle\Twig\RelativeTimeExtension
+        tags:
+            - { name: twig.extension }
+
+    documentary_wire.twig.chat_extension:
+        class: DW\DWBundle\Twig\ChatExtension
+        tags:
+            - { name: twig.extension }
+
+    documentary_wire.twig.hour_minute_extension:
+        class: DW\DWBundle\Twig\HourMinuteExtension
+        tags:
+            - { name: twig.extension }
+
+    documentary_wire.twig.fetch_documentary_extension:
+        class: DW\DWBundle\Twig\FetchDocumentaryExtension
+        arguments: [@service_container]
+        tags:
+         - { name: twig.extension }
+
+    documentary_wire.twig.section_extension:
+        class: DW\DWBundle\Twig\SectionExtension
+        arguments: [@service_container]
+        tags:
+         - { name: twig.extension }
+
+    documentary_wire.twig.categories_widget_extension:
+        class: DW\DWBundle\Twig\CategoriesWidgetExtension
+        arguments: [@documentary_wire.category_manager]
+        tags:
+         - { name: twig.extension }
+
+    documentary_wire.twig.tags_widget_extension:
+        class: DW\DWBundle\Twig\TagsWidgetExtension
+        arguments: [@documentary_wire.tag_manager]
+        tags:
+         - { name: twig.extension }
+
+    documentary_wire.twig.activity_widget_extension:
+        class: DW\DWBundle\Twig\ActivityWidgetExtension
+        arguments: [@documentary_wire.activity_manager]
+        tags:
+         - { name: twig.extension }
+
+    documentary_wire.twig.user_widget_extension:
+        class: DW\DWBundle\Twig\UserWidgetExtension
+        arguments:
+          - @documentary_wire.user_manager
+          - @Session
+        tags:
+         - { name: twig.extension }
+
+    documentary_wire.twig.featured_documentaries_extension:
+        class: DW\DWBundle\Twig\FeaturedDocumentariesExtension
+        arguments: [@documentary_wire.documentary_manager]
+        tags:
+         - { name: twig.extension }
+
+    documentary_wire.twig.year_widget_extension:
+        class: DW\DWBundle\Twig\YearWidgetExtension
+        arguments: [@documentary_wire.documentary_manager]
+        tags:
+         - { name: twig.extension }
+
+    documentary_wire.twig.duration_widget_extension:
+        class: DW\DWBundle\Twig\DurationWidgetExtension
+        arguments: [@documentary_wire.documentary_manager]
+        tags:
+         - { name: twig.extension }
+
+    documentary_wire.twig.get_gravatar_extension:
+        class: DW\DWBundle\Twig\GravatarExtension
+        arguments: [@documentary_wire.user_manager]
+        tags:
+         - { name: twig.extension }
+
+    documentary_wire.twig.get_avatar_extension:
+        class: DW\DWBundle\Twig\AvatarExtension
+        arguments:
+            - @documentary_wire.user_manager
+            - @liip_imagine.cache.manager
+        tags:
+         - { name: twig.extension }
+
+    documentary_wire.twig.has_liked_extension:
+        class: DW\DWBundle\Twig\HasLikedExtension
+        arguments: [@documentary_wire.like_manager]
+        tags:
+         - { name: twig.extension }
+
+    documentary_wire.twig.fetch_vote_extension:
+        class: DW\DWBundle\Twig\FetchVoteExtension
+        arguments:
+          - @documentary_wire.vote_manager
+          - @documentary_wire.user_helper
+        tags:
+         - { name: twig.extension }
+
+    documentary_wire.twig.related_documentaries_extension:
+        class: DW\DWBundle\Twig\RelatedDocumentariesExtension
+        arguments: [@documentary_wire.documentary_manager]
+        tags:
+         - { name: twig.extension }
+
+    documentary_wire.twig.top_scoring_users_extension:
+        class: DW\DWBundle\Twig\TopScoringUsersExtension
+        arguments: [@documentary_wire.vote_manager]
+        tags:
+          - { name: twig.extension }
+
+    documentary_wire.form.create_documentary:
+        class: DW\DWBundle\Form\CreateDocumentary
+        arguments:
+            - @documentary_wire.category_repository
+
+    documentary_wire.form.registration:
+        class: DW\DWBundle\Form\Registration
+
+    documentary_wire.oauth_user_provider:
+        class: DW\DWBundle\Entity\OAuthUserProvider
+        arguments:
+            - @documentary_wire.user_manager
+            - @documentary_wire.role_manager
+            - @documentary_wire.comment_manager
+            - @liip_imagine.data.manager
+            - @liip_imagine.filter.manager
+            - @documentary_wire.activity_manager
+            - @security.encoder_factory
+            - @documentary_wire.cache_helper
+
+    documentary_wire.user_provider:
+        class: DW\DWBundle\Provider\UserProvider
+        arguments:
+            - @documentary_wire.user_manager
+
+    documentary_wire.cached_documentary_repository:
+        class: %cached_documentary_repository.class%
+        arguments:
+            - @documentary_wire.documentary_repository
+            - @documentary_wire.cache_helper
+
+    documentary_wire.cached_user_repository:
+        class: %cached_user_repository.class%
+        arguments:
+            - @documentary_wire.user_repository
+            - @documentary_wire.cache_helper
+
+    documentary_wire.cached_category_repository:
+        class: %cached_category_repository.class%
+        arguments:
+            - @documentary_wire.category_repository
+            - @documentary_wire.cache_helper
+
+    documentary_wire.cached_comment_repository:
+        class: %cached_comment_repository.class%
+        arguments:
+            - @documentary_wire.comment_repository
+            - @documentary_wire.cache_helper
+
+    documentary_wire.cached_like_repository:
+        class: %cached_like_repository.class%
+        arguments:
+            - @documentary_wire.like_repository
+            - @documentary_wire.cache_helper
+
+    documentary_wire.cached_activity_repository:
+        class: %cached_activity_repository.class%
+        arguments:
+            - @documentary_wire.activity_repository
+            - @documentary_wire.cache_helper
+
+    documentary_wire.cached_vote_repository:
+        class: %cached_vote_repository.class%
+        arguments:
+          - @documentary_wire.vote_repository
+          - @documentary_wire.cache_helper
+
+    documentary_wire.cache_helper:
+        class: %cache_helper.class%
+        arguments:
+            - @tbbc_cache.simple_cache_manager
+            - @tbbc_cache.key_generator.simple_hash
+            - @jms_serializer.serializer
+
+    documentary_wire.user_helper:
+        class: %user_helper.class%
+        arguments:
+            - @security.context
+
+    documentary_wire.image_helper:
+        class: %image_helper.class%
+        arguments:
+            - @liip_imagine.data.manager
+            - @liip_imagine.filter.manager
+            - %kernel.root_dir%
+
+    documentary_wire.send_activation_email_listener:
+        class: %documentary_wire.send_activation_email_listener.class%
+        arguments:
+            - @router
+            - @mailer
+        tags:
+            - { name: kernel.event_listener, event: user.user_joined, method: sendActivationEmail }
+
+    documentary_wire.add_activity_listener:
+        class: %documentary_wire.add_activity_listener.class%
+        arguments:
+            - @documentary_wire.activity_manager
+        tags:
+            - { name: kernel.event_listener, event: documentary.new_documentary_added, method: onDocumentaryAdded }
+            - { name: kernel.event_listener, event: like.documentary_liked, method: onDocumentaryLiked }
+            - { name: kernel.event_listener, event: user.user_confirmed, method: onUserConfirmed }
+            - { name: kernel.event_listener, event: comment.documentary_comment_added, method: onCommentAdded }
+
+    documentary_wire.invalidate_cache_listener:
+        class: %documentary_wire.invalidate_cache_listener.class%
+        arguments:
+            - @documentary_wire.cache_helper
+        tags:
+            - { name: kernel.event_listener, event: documentary.new_documentary_added, method: onDocumentaryAdded }
+            - { name: kernel.event_listener, event: like.documentary_liked, method: onDocumentaryLiked }
+            - { name: kernel.event_listener, event: user.user_joined, method: onUserJoined }
+            - { name: kernel.event_listener, event: user.user_confirmed, method: onUserJoined }
+            - { name: kernel.event_listener, event: user.user_login, method: onUserLogin }
+            - { name: kernel.event_listener, event: comment.documentary_comment_added, method: onCommentAdded }
+            - { name: kernel.event_listener, event: activity.new_activity_added, method: onActivityAdded }
+
+    login_handler:
+        class: DW\DWBundle\Handler\LoginSuccessHandler
+        arguments:
+          - @router
+          - @documentary_wire.user_helper
+          - @documentary_wire.user_manager
+          - @event_dispatcher

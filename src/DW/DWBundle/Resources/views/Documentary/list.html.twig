@@ -1,0 +1,7 @@
+{% for documentary in documentaries %}
+    <li>
+        <a href="{{ url('documentary_wire_show_documentary', {'slug': documentary.slug }) }}"
+           title="{{ documentary.title }}">
+            {{ documentary.title }}</a>
+    </li>
+{% endfor %}

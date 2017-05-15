@@ -1,0 +1,10 @@
+<span class="follow-user">
+    {% set loggedInUser = app.user %}
+    {% if user != loggedInUser %}
+        {% if user in loggedInUserFollowing %}
+            <a class="unfollow" data-uid="{{ userId }}">Unfollow</a>
+        {% else %}
+            <a class="follow" data-uid="{{ userId }}">Follow</a>
+        {% endif %}
+    {% endif %}
+</span>

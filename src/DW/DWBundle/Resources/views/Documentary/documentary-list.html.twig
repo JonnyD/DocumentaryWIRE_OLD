@@ -1,0 +1,36 @@
+{% extends 'DocumentaryWIREBundle::base2.html.twig' %}
+
+{% block title %}Documentary List | DocumentaryWIRE{% endblock %}
+{% block description %}Explore list of documentaries.{% endblock %}
+
+{% block head %}
+    {% set url = url('documentary_wire.list') %}
+    <link rel="canonical" href="{{ url }}" />
+{% endblock %}
+
+{% block content %}
+<div class="loop-header below-no-actions">
+    <h1 class="loop-title">Documentary List</h1>
+</div>
+
+<div class="containfree">
+    <div class="leftwrapwide">
+        {% for item in list %}
+            <div align="center" class="titlegray">
+                {{ item.name }}
+            </div>
+            <div class="docuswrap">
+                <ol style="margin-left:-7px;">
+                    {% for documentary in item.documentaries %}
+                        <li>
+                            <a href="{{ url('documentary_wire_show_documentary', {'slug': documentary.slug }) }}"
+                               title="{{ documentary.title }}">
+                                {{ documentary.title }}</a>
+                        </li>
+                    {% endfor %}
+                </ol>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+ {% endblock %}

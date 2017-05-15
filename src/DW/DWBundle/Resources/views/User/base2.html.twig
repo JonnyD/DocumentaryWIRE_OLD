@@ -1,0 +1,93 @@
+{% extends 'DocumentaryWIREBundle::base2.html.twig' %}
+
+{% block content %}
+    {% set username = user.username %}
+    {% set avatar = user.avatar %}
+    {% set userId = user.id %}
+
+
+<div class="post-0 bp_members type-bp_members status-publish hentry" id="post-0">
+                <div class="page-content rich-content">
+                    <div id="buddypress">
+
+
+                        <div id="item-header" role="complementary">
+
+
+
+                            <div id="item-header-avatar">
+                                <a href="">
+
+                                    <img src="{{ asset(avatar) }}" class="avatar user-1-avatar avatar- photo" width="150" height="150" alt="Profile picture of admin" />
+                                </a>
+                            </div><!-- #item-header-avatar -->
+
+                            <div id="item-header-content">
+
+                                <h2 class="user-nicename">{{ username }}</h2>
+
+
+                                <div id="item-meta">
+
+
+                                    <div id="latest-update">
+
+
+                                    </div>
+
+
+                                    <div id="item-buttons">
+
+
+                                    </div><!-- #item-buttons -->
+
+
+                                </div><!-- #item-meta -->
+
+                            </div><!-- #item-header-content -->
+
+
+
+                        </div><!-- #item-header -->
+
+                        <div id="item-nav">
+                            <div class="item-list-tabs no-ajax" id="object-nav" role="navigation">
+                                <ul>
+
+                                    <li id="activity-personal-li"  class="current selected"><a id="user-activity" href="http://localhost/documentarywire_wordpress/members-2/admin/activity/">Activity</a></li><li id="xprofile-personal-li" ><a id="user-xprofile" href="http://localhost/documentarywire_wordpress/members-2/admin/profile/">Profile</a></li><li id="notifications-personal-li" ><a id="user-notifications" href="http://localhost/documentarywire_wordpress/members-2/admin/notifications/">Notifications <span class="no-count">0</span></a></li><li id="settings-personal-li" ><a id="user-settings" href="http://localhost/documentarywire_wordpress/members-2/admin/settings/">Settings</a></li>
+
+                                </ul>
+                            </div>
+                        </div><!-- #item-nav -->
+
+                        <div id="item-body" role="main">
+
+
+                            <div class="item-list-tabs no-ajax" id="subnav" role="navigation">
+                                <ul>
+
+                                    <li id="just-me-personal-li"  class="current selected"><a id="just-me" href="http://localhost/documentarywire_wordpress/members-2/admin/activity/">Personal</a></li><li id="activity-mentions-personal-li" ><a id="activity-mentions" href="http://localhost/documentarywire_wordpress/members-2/admin/activity/mentions/">Mentions</a></li><li id="activity-favs-personal-li" ><a id="activity-favs" href="http://localhost/documentarywire_wordpress/members-2/admin/activity/favorites/">Favorites</a></li>
+                                    <li id="activity-filter-select" class="last">
+                                        <label for="activity-filter-by">Show:</label>
+                                        <select id="activity-filter-by">
+                                            <option value="-1">Everything</option>
+                                            <option value="activity_update">Updates</option>
+
+
+                                        </select>
+                                    </li>
+                                </ul>
+                            </div><!-- .item-list-tabs -->
+
+
+                            {% block userBody %}
+                            {% endblock %}
+
+                        </div><!-- #item-body -->
+
+
+                    </div><!-- #buddypress -->
+                </div>
+            </div><!--end .hentry-->
+
+{% endblock %}
